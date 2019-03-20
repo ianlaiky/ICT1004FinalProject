@@ -9,23 +9,49 @@
 	    $email = mysqli_real_escape_string($connection, $_POST['email']);
 	    $password = mysqli_real_escape_string($connection, $_POST['password']);
 
-	    $findAccount = "SELECT * FROM users WHERE email = '$email' AND password = '$password' LIMIT 1";
+	    if ($findAccount = mysqli_prepare($connection, "SELECT * FROM users WHERE email =?")) {
+	    	echo "select statement works";
+	    	$findAccount->bind_param('s', $email);
+			$findAccount->execute(); 
+			$result = $findAccount->get_result();
+//
+			if ($result->num_rows != 0) {
+				echo "account exist";
+				$row = $result->fetch_assoc();
+				$hash = $row['password'];
+				$verified = $row['is_verified'];
 
-	    //Check if account exist. 
-	    if (mysqli_num_rows($result = mysqli_query($connection, $findAccount)) !=0) {
-	    	$row = mysqli_fetch_assoc($result);
-	    	$verified = $row['is_verified'];
-
-	    	if ($verified == 1) {
-	    		echo "You are logged in.";
-	    	}
-	    	else{
-	    		echo "Something went wrong.";
-	    	}
+				if (password_verify($password, $hash) and $verified == 1) {
+					echo "You are logged in";
+				}
+				else{
+					echo "no";
+				}
+			}
+			else{
+				echo "no";
+			}
 	    }
 	    else{
-	    	echo "Invalid username/password";
+	    	echo "select statement dont work";
 	    }
+
+	    // $findAccount = "SELECT * FROM users WHERE email = '$email' AND password = '$password' LIMIT 1"; 
+	    // //Check if account exist. 
+	    // if (mysqli_num_rows($result = mysqli_query($connection, $findAccount)) !=0) {
+	    // 	$row = mysqli_fetch_assoc($result);
+	    // 	$verified = $row['is_verified'];
+
+	    // 	if ($verified == 1) {
+	    // 		echo "You are logged in.";
+	    // 	}
+	    // 	else{
+	    // 		echo "Something went wrong.";
+	    // 	}
+	    // }
+	    // else{
+	    // 	echo "Invalid username/password";
+	    // }
 	}
  ?>
 <html>

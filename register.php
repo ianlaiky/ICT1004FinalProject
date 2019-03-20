@@ -1,8 +1,8 @@
 <?php 
 
 
-	$name = $email = $password = $confirm = $checkbox = "";
-	$nameErr = $usernameErr = $emailErr = $passwordErr = $confirmErr = "";
+	$name = $email = "";
+	$nameErr = $emailErr = $passwordErr = $confirmErr = "";
 
 	require_once('config.php');
 	
@@ -21,22 +21,60 @@
 			$confirmErr = "Password does not match.";
 		}
 		else{
-			$vkey = md5(time().$name);
-        	$query = "INSERT INTO users(`name`, `password`, `email`, `vkey`) VALUES ('$name', '$password', '$email', '$vkey')";
-        	if (mysqli_query($connection, $query)) {
-        		$to = $email;
-        		$subject = "Email Verification";
-        		$message = "<a href='http://localhost/fasttrade/verify.php?vkey=$vkey'>Verify Now!</a>";
-        		$headers = "From: fast-trade@gmail.com \r\n";
-        		$headers .= "MIME-Version: 1.0" . "\r\n";
-				$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";	
+			$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+			//Check if user account exist before inserting. 
 
-				mail($to, $subject, $message, $headers);
-				header('location: index.php');
+			if ($sel_stmt = mysqli_prepare($connection, "SELECT user_id, password FROM users WHERE email = ?")) {
+				$sel_stmt->bind_param("s", $email);
+				$sel_stmt->execute(); 
+				$sel_stmt->store_result(); 
 
-        	}else{
-        		echo "fail";
-        	}
+				if ($sel_stmt->num_rows > 0) {
+					echo "account exist.";
+				}
+				else{
+					echo "im here1";
+					//account does not exist in database; continue to store.
+					$vkey = md5(time().$name);
+					if ($insert_stmt = mysqli_prepare($connection, "INSERT INTO users (name, password, email, vkey) VALUES (?,?,?,?)"))
+					 {
+					 	echo "im here2";
+						$insert_stmt->bind_param('ssss', $name, $password, $email, $vkey);
+						// $stmt->execute();
+						if ($insert_stmt->execute()) {
+							echo "im here3";
+							$to = $email;
+			        		$subject = "Email Verification";
+			        		$message = "<a href='http://localhost/fasttrade/verify.php?vkey=$vkey'>Verify Now!</a>";
+			        		$headers = "From: fast-trade@gmail.com \r\n";
+			        		$headers .= "MIME-Version: 1.0" . "\r\n";
+							$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";	
+
+							mail($to, $subject, $message, $headers);
+							header('location: index.php');
+						}
+						else{
+							echo "fail";
+						}
+					}
+
+		    //     	$query = "INSERT INTO users(`name`, `password`, `email`, `vkey`) VALUES ('$name', '$password', '$email', '$vkey')";
+		    //     	if (mysqli_query($connection, $query)) {
+		    //     		$to = $email;
+		    //     		$subject = "Email Verification";
+		    //     		$message = "<a href='http://localhost/fasttrade/verify.php?vkey=$vkey'>Verify Now!</a>";
+		    //     		$headers = "From: fast-trade@gmail.com \r\n";
+		    //     		$headers .= "MIME-Version: 1.0" . "\r\n";
+						// $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";	
+
+						// mail($to, $subject, $message, $headers);
+						// header('location: index.php');
+
+		    //     	}else{
+		    //     		echo "fail";
+		    //     	}
+				}
+			}
 		}
 	}
 	mysqli_close($connection);
