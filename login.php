@@ -27,6 +27,7 @@
 				$gender = $row['gender'];
 				$contact = $row['contact'];
 				$user_id = $row['user_id'];
+				$profile_picture = base64_encode($row['profile_picture']);
 
 				if (password_verify($password, $hash) and $verified == 1) {
 					$_SESSION['username'] = $username;
@@ -35,6 +36,7 @@
 					$_SESSION['gender'] = $gender;
 					$_SESSION['contact'] = $contact;
 					$_SESSION['user_id'] = $user_id;
+					$_SESSION['profile_picture'] = $profile_picture;
 					header("Location: index.php");
 				}
 				else{
