@@ -1,8 +1,7 @@
+<?php session_start() ?>
 <?php 
 
-
-	$name = $email = "";
-	$nameErr = $emailErr = $passwordErr = $confirmErr = "";
+	$name = $email = $username = "";
 
 	require_once('config.php');
 	
@@ -13,6 +12,7 @@
 
 	if (isset($_POST['submit'])) {
 		$name = mysqli_real_escape_string($connection, $_POST['name']);
+		$username = mysqli_real_escape_string($connection, $_POST['username']);
     	$email = mysqli_real_escape_string($connection, $_POST['email']);
     	$password = mysqli_real_escape_string($connection, $_POST['password']);
     	$confirm = mysqli_real_escape_string($connection, $_POST['confirm']);
@@ -24,28 +24,25 @@
 			$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 			//Check if user account exist before inserting. 
 
-			if ($sel_stmt = mysqli_prepare($connection, "SELECT user_id, password FROM users WHERE email = ?")) {
-				$sel_stmt->bind_param("s", $email);
+			if ($sel_stmt = mysqli_prepare($connection, "SELECT user_id, password FROM users WHERE username = ?")) {
+				$sel_stmt->bind_param("s", $username);
 				$sel_stmt->execute(); 
 				$sel_stmt->store_result(); 
 
 				if ($sel_stmt->num_rows > 0) {
-					echo "account exist.";
+					echo "Username taken.";
 				}
 				else{
-					echo "im here1";
 					//account does not exist in database; continue to store.
 					$vkey = md5(time().$name);
-					if ($insert_stmt = mysqli_prepare($connection, "INSERT INTO users (name, password, email, vkey) VALUES (?,?,?,?)"))
+					if ($insert_stmt = mysqli_prepare($connection, "INSERT INTO users (name, username, password, email, vkey) VALUES (?,?,?,?,?)"))
 					 {
-					 	echo "im here2";
-						$insert_stmt->bind_param('ssss', $name, $password, $email, $vkey);
+						$insert_stmt->bind_param('sssss', $name, $username, $password, $email, $vkey);
 						// $stmt->execute();
 						if ($insert_stmt->execute()) {
-							echo "im here3";
 							$to = $email;
 			        		$subject = "Email Verification";
-			        		$message = "<a href='http://localhost/fasttrade/verify.php?vkey=$vkey'>Verify Now!</a>";
+			        		$message = "<a href='http://localhost/FastTrade/verify.php?vkey=$vkey'>Verify Now!</a>";
 			        		$headers = "From: fast-trade@gmail.com \r\n";
 			        		$headers .= "MIME-Version: 1.0" . "\r\n";
 							$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";	
@@ -57,22 +54,6 @@
 							echo "fail";
 						}
 					}
-
-		    //     	$query = "INSERT INTO users(`name`, `password`, `email`, `vkey`) VALUES ('$name', '$password', '$email', '$vkey')";
-		    //     	if (mysqli_query($connection, $query)) {
-		    //     		$to = $email;
-		    //     		$subject = "Email Verification";
-		    //     		$message = "<a href='http://localhost/fasttrade/verify.php?vkey=$vkey'>Verify Now!</a>";
-		    //     		$headers = "From: fast-trade@gmail.com \r\n";
-		    //     		$headers .= "MIME-Version: 1.0" . "\r\n";
-						// $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";	
-
-						// mail($to, $subject, $message, $headers);
-						// header('location: index.php');
-
-		    //     	}else{
-		    //     		echo "fail";
-		    //     	}
 				}
 			}
 		}
@@ -91,6 +72,7 @@
 	<!-- Bootstrap core CSS -->
 	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+
 	<!-- Custom styles for this template -->
 	<link href="css/shop-homepage.css" rel="stylesheet">
 </head>
@@ -98,39 +80,42 @@
 	<?php include 'header.inc.php'; ?>
 	
 	<div class="container">
+		<br><br>
 		<h1>Register Accounts</h1>
 		<p>If you already have an account with us, please login in the login page.</p>
 
 		<form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="name">Name:</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" name="name" value="<?php echo $name;?>">
-					<span class="error"><?php echo $nameErr;?></span>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="email">Email:</label>
-				<div class="col-sm-10">
-					<input type="email" class="form-control" name="email" value="<?php echo $email;?>">
-					<span class="error"><?php echo $emailErr;?></span>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="password">Password:</label>
-				<div class="col-sm-10">
-					<input type="password" class="form-control" name="password">
-					<span class="error"><?php echo $passwordErr;?></span>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="confirm">Password Confirm:</label>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label" for="name">Name:</label>
 				<div class="col-sm-5">
-					<input type="password" class="form-control" name="confirm" >
-					<span class="error"><?php echo $confirmErr;?></span>
+					<input type="text" class="form-control" name="name" value="<?php echo $name;?>" required>
 				</div>
 			</div>
-			<div class="form-group"> 
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label" for="name">Username:</label>
+				<div class="col-sm-5">
+					<input type="text" class="form-control" name="username" value="<?php echo $username;?>" required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label" for="email">Email:</label>
+				<div class="col-sm-5">
+					<input type="email" class="form-control" name="email" value="<?php echo $email;?>" required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label" for="password">Password:</label>
+				<div class="col-sm-5">
+					<input type="password" class="form-control" name="password" required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label" for="confirm">Confirm password:</label>
+				<div class="col-sm-5">
+					<input type="password" class="form-control" name="confirm" required>
+				</div>
+			</div>
+			<div class="form-group row"> 
 				<div class="col-sm-offset-2 col-sm-10">
 				<button type="submit" name="submit" class="btn btn-info">Submit</button>
 				</div>

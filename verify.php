@@ -1,11 +1,12 @@
 <?php 
+	require_once('config.php');
+	$connection = mysqli_connect(DBHOST, DBUSER, DBPASS,DBNAME);
+	if (mysqli_connect_errno() ){
+	    die( mysqli_connect_error() );
+	}
+	
 	if (isset($_GET['vkey'])) {
 		$vkey = $_GET['vkey'];
-
-		$connection = mysqli_connect('localhost', 'pswrite', 'password','fast_trade');
-	    if (mysqli_connect_errno() ){
-	        die( mysqli_connect_error() );
-	    }
 
 	    $query = "SELECT is_verified FROM users WHERE is_verified = 0 AND vkey = '$vkey' LIMIT 1";
 

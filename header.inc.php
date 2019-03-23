@@ -1,10 +1,24 @@
 <?php 
+
+    $ref1 = $ref2 = $ref1Name = $ref2Name = "";
     function linkActive($requestUri)
     {
         $current_file_name = basename($_SERVER['REQUEST_URI'], ".php");
-
         if ($current_file_name == $requestUri)
             echo 'class="active"';
+    }
+
+    if (!isset($_SESSION['username'])) {
+        $ref1 = "register";
+        $ref1Name = "Register";
+        $ref2 = "login";
+        $ref2Name = "Login";
+    }
+    else{
+        $ref1 = "profile";
+        $ref1Name = "My Profile";
+        $ref2 = "logout";
+        $ref2Name = "Logout";
     }
 ?>
 
@@ -22,14 +36,14 @@
                 Home
             </a>
         </li>
-        <li <?=linkActive("register")?>>
-            <a class="nav-link" href="register.php">
-                Register
+        <li <?=linkActive($ref1)?>>
+            <a class="nav-link" href=<?php echo $ref1.".php" ?>>
+                <?php echo $ref1Name ?>
             </a>
         </li>
-        <li <?=linkActive("login")?>>
-            <a class="nav-link" href="login.php">
-                Login
+        <li <?=linkActive($ref2)?>>
+            <a class="nav-link" href=<?php echo $ref2.".php" ?>>
+                <?php echo $ref2Name ?>
             </a>
         </li>
       </ul>
