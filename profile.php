@@ -1,9 +1,4 @@
 <?php session_start() ?>
-<?php 
-	if (isset($_SESSION['test'])) {
-		$test = $_SESSION['test'];
-	}
- ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,20 +18,22 @@
 	<div class="container">
 		<h1>Hello <?php echo $_SESSION['name'].'!' ?></h1>
 		<br>
-		<form class="form-horizontal" method="post" action="update_profile.php"> 
+		<form enctype="multipart/form-data" class="form-horizontal" method="post" action="update_profile.php"> 
 			<div class="form-group row">
-				<label for="username" class="col-sm-2 col-form-label">Profile picture</label>
+				<label for="picture" class="col-sm-2 col-form-label">Profile Image</label>
 		    	<div class="col-sm-8">
 		      		<div class="file-field">
-						<div class="z-depth-1-half mb-4">
-							<!-- Need to change src to $_SESSION['picture'] after inserting-->
-							<img style="height:200px" src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="img-fluid">
-						</div>
-						<div class="d-flex">
-							<div style="padding:0px" class="btn btn-mdb-color btn-rounded float-left">
-								<input type="file" name="picture">
-							</div>
-						</div>
+						<!-- <div class="z-depth-1-half mb-4"> -->
+							 <!-- Need to change src to $_SESSION['picture'] after inserting -->
+						<img src="img/user.png" onClick="popupFileExplorer()" id="preview" style="height:100px" class="img-fluid">
+						<!-- <img src="img/user.png" onclick="popupFileExplorer()" id="preview" style="height:100px" > -->
+						<!-- </div> -->
+						<!-- <div class="d-flex"> -->
+							<!-- <div style="padding:0px" class="btn btn-mdb-color btn-rounded float-left"> -->
+						<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+						<input type="file" accept="image/*" name="picture" onChange="changePreview(this)" id="picture" class="form-control" style="display: none;">
+							<!-- </div> -->
+						<!-- </div> -->
 					</div>
 		    	</div>
 			</div>
@@ -93,13 +90,15 @@
 			<br>
 			<div class="form-group row"> 
 				<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" name="update" class="btn btn-info float-right">Update profile</button>
+				<button type="submit" class="btn btn-info float-right" name="update">Update profile</button>
 				</div>
 			</div>
 
 		</form>
 	</div>
 	<?php include 'footer.inc.php' ?>
+	<!-- Custom JavaScript -->
+	<script src="vendor/form.js"></script>
 	  <!-- Bootstrap core JavaScript -->
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

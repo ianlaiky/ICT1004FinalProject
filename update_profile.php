@@ -4,7 +4,13 @@
 	//after updating the db, must overwrite the session variable. 
 	$email = $_SESSION['email'];
 	//check if email is posted in. if yes, change email.
-	if (isset($_FILES['file']['name'])) {
-		echo 'file received';
-	}
+	echo $_FILES['picture']['size'];
+	echo "<br>";
+	echo $_FILES['picture']['error'];
+	echo "<br>";
+	echo $_FILES['picture']['type'];
+	echo "<br>";
+	echo $_FILES['picture']['tmp_name']
+
+	
  ?>

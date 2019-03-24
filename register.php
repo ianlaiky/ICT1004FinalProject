@@ -84,7 +84,7 @@
 		<h1>Register Accounts</h1>
 		<p>If you already have an account with us, please login in the login page.</p>
 
-		<form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+		<form enctype="multipart/form-data" class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label" for="name">Name:</label>
 				<div class="col-sm-5">
