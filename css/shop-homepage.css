@@ -6,3 +6,23 @@
 body {
   padding-top: 56px;
 }
+
+.caroImage {
+  height: 350px;
+  width: 900px;
+}
+
+div.carousel-caption{
+  background-color: rgb(0, 0, 0, 0.5)
+}
+
+div.carousel-caption h3{
+  color: whitesmoke;
+}
+
+div.carousel-caption p{
+  color: whitesmoke
+}
+
+a.carousel-control-next{
+}
