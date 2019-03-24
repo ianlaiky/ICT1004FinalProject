@@ -1,4 +1,4 @@
-<?php 
+<?php
 
     $ref1 = $ref2 = $ref1Name = $ref2Name = "";
     function linkActive($requestUri)
@@ -20,6 +20,7 @@
         $ref2 = "logout";
         $ref2Name = "Logout";
     }
+
 ?>
 
 <!-- Navigation -->
