@@ -18,7 +18,7 @@ if (isset($_SESSION['username'])) {
     }
 
 
-    $sql = "Select * from users_message";
+    $sql = "Select * from users_message where fk_custUserId = (select user_id from users where username = '".$_SESSION['username']."')";
 
     $data = array();
 
