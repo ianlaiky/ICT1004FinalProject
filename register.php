@@ -41,8 +41,9 @@
 						// $stmt->execute();
 						if ($insert_stmt->execute()) {
 							$to = $email;
+
 			        		$subject = "Email Verification";
-			        		$message = "<a href='http://localhost/FastTrade/verify.php?vkey=$vkey'>Verify Now!</a>";
+			        		$message = "<a href=\"http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/verify.php?vkey=$vkey\">Verify Now!</a>";
 			        		$headers = "From: fast-trade@gmail.com \r\n";
 			        		$headers .= "MIME-Version: 1.0" . "\r\n";
 							$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";	
@@ -78,7 +79,6 @@
 </head>
 <body>
 	<?php include 'header.inc.php'; ?>
-	
 	<div class="container">
 		<br><br>
 		<h1>Register Account</h1>
