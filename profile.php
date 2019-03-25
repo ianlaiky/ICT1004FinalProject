@@ -25,14 +25,23 @@
 		      		<div class="file-field">
 						<!-- <div class="z-depth-1-half mb-4"> -->
 							 <!-- Need to change src to $_SESSION['picture'] after inserting -->
-						<img src="img/user.png" onClick="popupFileExplorer()" id="preview" style="height:100px" class="img-fluid">
+
+                        <div class="wrapper">
+						<img src="img/user.png" onClick="popupFileExplorer()" id="preview" style="width:300px" class="img-fluid">
+                        <div class="overlay">
+                            <div class="content">Click to change image</div>
+                        </div>
+                        </div>
+
 						<!-- <img src="img/user.png" onclick="popupFileExplorer()" id="preview" style="height:100px" > -->
 						<!-- </div> -->
 						<!-- <div class="d-flex"> -->
 							<!-- <div style="padding:0px" class="btn btn-mdb-color btn-rounded float-left"> -->
 						<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
 						<input type="file" accept="image/*" name="picture" onChange="changePreview(this)" id="picture" class="form-control" style="display: none;">
-							<!-- </div> -->
+
+
+                            <!-- </div> -->
 						<!-- </div> -->
 					</div>
 		    	</div>

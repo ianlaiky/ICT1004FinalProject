@@ -6,3 +6,42 @@
 body {
   padding-top: 56px;
 }
+.carousel-inner img {
+  width: 100%; /* Set width to 100% */
+  margin: auto;
+  min-height:200px;
+}
+
+.wrapper {
+  width:100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.img-fluid {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+}
+.content{
+  position: absolute;
+  top:45%;
+  left:20%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  font-size: 30px;
+  white-space: nowrap;
+  overflow:hidden;
+}
+
+.overlay{
+  opacity: 0
+}
+.wrapper:hover img{
+  opacity: .5
+}
+.wrapper:hover .overlay{
+  opacity: 1
+}
