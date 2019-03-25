@@ -1,4 +1,12 @@
 <?php session_start() ?>
+<?php 
+	if (isset($_SESSION['profile_picture'])) {
+		$dp = $_SESSION['profile_picture'];
+	}
+	else{
+		$dp = "img/user.png";
+	}
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +24,7 @@
 	<?php include 'header.inc.php'; ?>
 	<br><br>
 	<div class="container">
-		<h1>Hello <?php echo $_SESSION['name'].'!' ?></h1>
+		<h1>Hello, <?php echo $_SESSION['name'].'!' ?></h1>
 		<br>
 		<form enctype="multipart/form-data" class="form-horizontal" method="post" action="update_profile.php"> 
 			<div class="form-group row">
@@ -25,13 +33,12 @@
 		      		<div class="file-field">
 						<!-- <div class="z-depth-1-half mb-4"> -->
 							 <!-- Need to change src to $_SESSION['picture'] after inserting -->
-						<img src="img/user.png" onClick="popupFileExplorer()" id="preview" style="height:100px" class="img-fluid">
+						<img onClick="popupFileExplorer()" id="preview" style="height:100px" class="img-fluid" src="img/user.png">
 						<!-- <img src="img/user.png" onclick="popupFileExplorer()" id="preview" style="height:100px" > -->
 						<!-- </div> -->
 						<!-- <div class="d-flex"> -->
 							<!-- <div style="padding:0px" class="btn btn-mdb-color btn-rounded float-left"> -->
-						<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-						<input type="file" accept="image/*" name="picture" onChange="changePreview(this)" id="picture" class="form-control" style="display: none;">
+						<input type="file" accept="image/*" name="picture" onChange="changePreview(this)" id="picture" class="form-control" value="" style="display: none;">
 							<!-- </div> -->
 						<!-- </div> -->
 					</div>
@@ -46,20 +53,29 @@
 			<div class="form-group row">
 				<label for="email" class="col-sm-2 col-form-label">Email</label>
 				<div class="col-sm-8">
-				  	<input type="text" readonly class="form-control" name="email" value=<?php echo $_SESSION['email']?>>
+				  	<input type="text" class="form-control" name="email" value=<?php echo $_SESSION['email']?>>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="gender" class="col-sm-2 col-form-label ">Gender</label>
 					<div class="col-sm-8 ">
-						<div style="margin-top:0.5em" class="custom-control custom-radio custom-control-inline">
-						  <input type="radio" id="radio1" name= "gender" class="custom-control-input" value="male">
-						  <label class="custom-control-label" name="gender" for="radio1">Male</label>
-						</div>
-						<div style="margin-top:0.5em" class="custom-control custom-radio custom-control-inline">
-						  <input type="radio" id="radio2" name= "gender" class="custom-control-input" value="female">
-						  <label class="custom-control-label" name="gender" for="radio2">Female</label>
-						</div>
+						<?php 
+							//Checks if the user already select a gender. If yes, user shouldn't need to select gender anymore so therefore, display a readonly field for gender. 
+							if (isset($_SESSION['gender'])) {
+								echo '<input type="text" readonly class="form-control" value='.$_SESSION['gender'].'>';
+							}
+							else{
+								echo '<div style="margin-top:0.5em" class="custom-control custom-radio custom-control-inline">';
+								echo '<input type="radio" id="radio1" name= "gender" class="custom-control-input" value="Male" checked="checked">';
+								echo '<label class="custom-control-label" name="gender" for="radio1">Male</label>';
+								echo '</div>';
+								echo '<div style="margin-top:0.5em" class="custom-control custom-radio custom-control-inline">';
+								echo '<input type="radio" id="radio2" name= "gender" class="custom-control-input" value="Female">';
+								echo '<label class="custom-control-label" name="gender" for="radio2">Female</label>';
+								echo '</div>';
+							}	
+							
+						 ?>
 					</div>
 				</label>
 			</div>
