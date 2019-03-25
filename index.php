@@ -46,6 +46,13 @@
                 }
 
                 if ($result = mysqli_query($connection, $sql)) {
+                  echo '<a href="index.php" class="list-group-item';
+                        if (!isset($_GET['type'])) {
+                            echo ' active';
+                        }
+                        echo '">';
+                        echo 'All';
+                        echo '</a>';
                     while($row = mysqli_fetch_assoc($result)) {
                         echo '<a href="index.php?type='.$row['type'].'" class="list-group-item';
                         if ($row['type'] == $type) {
@@ -55,13 +62,6 @@
                         echo $row['type'];
                         echo '</a>';
                     }
-                    echo '<a href="index.php" class="list-group-item';
-                        if (!isset($_GET['type'])) {
-                            echo ' active';
-                        }
-                        echo '">';
-                        echo 'All';
-                        echo '</a>';
                 }
               ?>
             </ul>
