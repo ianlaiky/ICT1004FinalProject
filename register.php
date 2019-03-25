@@ -41,8 +41,9 @@
 						// $stmt->execute();
 						if ($insert_stmt->execute()) {
 							$to = $email;
+
 			        		$subject = "Email Verification";
-			        		$message = "<a href='http://localhost/FastTrade/verify.php?vkey=$vkey'>Verify Now!</a>";
+			        		$message = "<a href=\"http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/verify.php?vkey=$vkey\">Verify Now!</a>";
 			        		$headers = "From: fast-trade@gmail.com \r\n";
 			        		$headers .= "MIME-Version: 1.0" . "\r\n";
 							$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";	
@@ -78,41 +79,42 @@
 </head>
 <body>
 	<?php include 'header.inc.php'; ?>
-	
 	<div class="container">
 		<br><br>
-		<h1>Register Accounts</h1>
+		<h1>Register Account</h1>
 		<p>If you already have an account with us, please login in the login page.</p>
 
 		<form enctype="multipart/form-data" class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label" for="name">Name:</label>
 				<div class="col-sm-5">
-					<input type="text" class="form-control" name="name" value="<?php echo $name;?>" required>
+					<input placeholder="Enter name" type="text" class="form-control" name="name" value="<?php echo $name;?>" required>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label" for="name">Username:</label>
 				<div class="col-sm-5">
-					<input type="text" class="form-control" name="username" value="<?php echo $username;?>" required>
+					<input placeholder="Enter username" type="text" class="form-control" name="username" value="<?php echo $username;?>" required>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label" for="email">Email:</label>
 				<div class="col-sm-5">
-					<input type="email" class="form-control" name="email" value="<?php echo $email;?>" required>
+					<input placeholder="Enter email" aria-describedby="emailVerify" type="email" class="form-control" name="email" value="<?php echo $email;?>" required>
+					<small id="emailVerify" class="form-text text-muted">Please enter a valid email. A verification email will be sent to this address.</small>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label" for="password">Password:</label>
 				<div class="col-sm-5">
-					<input type="password" class="form-control" name="password" required>
+					<input placeholder="Enter password" aria-describedby="passwordVerify" type="password" class="form-control" name="password" required>
+					<small id="passwordVerify" class="form-text text-muted">Password must be alphanumeric and be at least 8 characters long</small>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label" for="confirm">Confirm password:</label>
 				<div class="col-sm-5">
-					<input type="password" class="form-control" name="confirm" required>
+					<input placeholder="Re-type the password" type="password" class="form-control" name="confirm" required>
 				</div>
 			</div>
 			<div class="form-group row"> 
@@ -120,7 +122,7 @@
 				<button type="submit" name="submit" class="btn btn-info">Submit</button>
 				</div>
 			</div>
-	</form>
+		</form>
 	</div>
 
 	<?php include 'footer.inc.php' ?>

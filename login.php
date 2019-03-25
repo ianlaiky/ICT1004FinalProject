@@ -71,6 +71,10 @@
 	<?php include 'header.inc.php'; ?>
 	<br><br>
 	<div class="container">
+		<h1>Login to enjoy online shopping!</h1>
+		<br>
+		<hr>
+		<br>
 		<form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="username">Username:</label>
