@@ -30,7 +30,14 @@
 					$_SESSION['gender'] = $row['gender'];
 					$_SESSION['contact'] = ($row['contact'] == 0 ? "" : $row['contact']);
 					$_SESSION['user_id'] = $row['user_id'];
-					$_SESSION['profile_picture'] = base64_encode($row['profile_picture']);
+					if (!empty($row['profile_picture'])) {
+						$_SESSION['profile_picture'] = '"data:image/png;base64,'.base64_encode($row['profile_picture']).'" width="150" height="150"';
+					}
+					else{
+						$_SESSION['profile_picture'] = "img/user.png";
+					}
+					// $_SESSION['profile_picture'] = base64_encode($row['profile_picture']);
+					
 					header("Location: index.php");
 				}
 				else{

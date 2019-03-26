@@ -1,11 +1,9 @@
 <?php session_start() ?>
 <?php 
-	if (isset($_SESSION['profile_picture'])) {
-		$dp = $_SESSION['profile_picture'];
-	}
-	else{
-		$dp = "img/user.png";
-	}
+	// $dp = "img/user.png";
+	// if (!empty($_SESSION['profile_picture'])) {
+	// 	$dp = $_SESSION['profile_picture'];
+	// }
  ?>
 <!DOCTYPE html>
 <html>
@@ -33,7 +31,7 @@
 		      		<div class="file-field">
 						<!-- <div class="z-depth-1-half mb-4"> -->
 							 <!-- Need to change src to $_SESSION['picture'] after inserting -->
-						<img onClick="popupFileExplorer()" id="preview" style="height:100px" class="img-fluid" src="img/user.png">
+						<img onClick="popupFileExplorer()" id="preview" style="height:150px; width: 150px" class="img-fluid" src=<?php echo $_SESSION['profile_picture']; ?>>
 						<!-- <img src="img/user.png" onclick="popupFileExplorer()" id="preview" style="height:100px" > -->
 						<!-- </div> -->
 						<!-- <div class="d-flex"> -->

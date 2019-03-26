@@ -2,7 +2,6 @@
 
 <?php 
 	
-	// var_dump($_FILES['picture']);
 	require_once('config.php');
 	$connection = mysqli_connect(DBHOST, DBUSER, DBPASS,DBNAME);
 	if (mysqli_connect_errno() ){
@@ -27,23 +26,12 @@
 		$_SESSION['contact'] = $contact;
 		$_SESSION['gender'] = $gender;
 		$_SESSION['email'] = $email;
-		// $_SESSION['profile_picture'] = base64_encode($imageData);
-		// header("Location: profile.php");
-
 		// Read image path, convert to base64 encoding
 		$encodedImage = base64_encode(file_get_contents($_FILES['picture']['tmp_name']));
 		// Format the image SRC:  data:{mime};base64,{data};
 		$src = 'data: '.mime_content_type($_FILES['picture']['tmp_name']).';base64,'.$encodedImage;
-		// Echo out a sample image
-		// echo '<img src="' . $src . '">';
-		$_SESSION['profile_picture'] = $src;
-		echo '<img src="' . $_SESSION['profile_picture'] . '">';
-		// echo 'src="' . $_SESSION['profile_picture'] . '"';
-
+		$_SESSION['profile_picture'] = '"' . $src . '"';
+		header("Location: profile.php");
+		// echo '<img src='$_SESSION['profile_picture']'>';
 	}
-
-	
  ?>
-
-<!-- echo '<img src="' . $_SESSION['profile_picture'] . '" onClick="popupFileExplorer()" id="preview" style="height:100px" class="img-fluid">'; -->
- 
