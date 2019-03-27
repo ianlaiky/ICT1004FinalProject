@@ -17,6 +17,7 @@
 	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom styles for this template -->
 	<link href="css/shop-homepage.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
 <body>
 	<?php include 'header.inc.php'; ?>
@@ -28,10 +29,13 @@
 			<div class="form-group row">
 				<label for="picture" class="col-sm-2 col-form-label">Profile Image</label>
 		    	<div class="col-sm-8">
-		      		<div class="file-field">
+		      		<div class="file-field hoverEffect">
 						<!-- <div class="z-depth-1-half mb-4"> -->
 							 <!-- Need to change src to $_SESSION['picture'] after inserting -->
-						<img onClick="popupFileExplorer()" id="preview" style="height:150px; width: 150px" class="img-fluid" src=<?php echo $_SESSION['profile_picture']; ?>>
+						<img onClick="popupFileExplorer()" id="preview" class="img-fluid image" src=<?php echo $_SESSION['profile_picture']; ?>>
+						<div class="middle">
+							<i class="fa fa-camera fa-lg" aria-hidden="true"></i>
+						</div>
 						<!-- <img src="img/user.png" onclick="popupFileExplorer()" id="preview" style="height:100px" > -->
 						<!-- </div> -->
 						<!-- <div class="d-flex"> -->
