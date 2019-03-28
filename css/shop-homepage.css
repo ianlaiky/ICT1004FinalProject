@@ -56,3 +56,9 @@ div.carousel-caption p{
 .hoverEffect:hover .middle {
   opacity: 1;
 }
+
+.product-img{
+  border: 1px solid #ddd; /* Gray border */
+  border-radius: 4px;  /* Rounded border */
+  padding: 10px;
+}
