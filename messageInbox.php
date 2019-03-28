@@ -44,10 +44,19 @@ session_start();
                 console.log(data);
                 console.log(document.getElementById("currentCount").textContent);
 
-                var currentCount = document.getElementById("currentCount").textContent;
-                document.getElementById("currentCount").textContent = data.length;
+                document.getElementById("sendingto").textContent = data[data.length-2];
+                document.getElementById("sendpid").textContent = data[data.length-1];
 
-                for (var i = currentCount; i < data.length; i++) {
+
+
+                // keep current text count; if current count is same as server, dont update
+                var currentCount = document.getElementById("currentCount").textContent;
+                document.getElementById("currentCount").textContent = data.length-2;
+
+
+
+                // i = current count, if new data, only start from the current count
+                for (var i = currentCount; i < data.length-2; i++) {
 
                     if (data[i].msgDirection == "from") {
 
@@ -103,7 +112,7 @@ session_start();
 
         }
 
-
+// do not comment this
         function gettest(id) {
 
             location.href = location.origin + location.pathname + '?pid=' + id;
@@ -113,6 +122,12 @@ session_start();
 
     <style>
         .currentCount {
+            visibility: hidden;
+        }
+        #sendingto{
+            visibility: hidden;
+        }
+        #sendpid{
             visibility: hidden;
         }
     </style>
@@ -146,6 +161,14 @@ session_start();
                 </div>
                 <div class="inbox_chat">
                     <?php
+
+                    require_once('config.php');
+                    $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
+
+                    if (mysqli_connect_errno()) {
+                        die(mysqli_connect_error());
+                    }
+
 
                     if (isset($_GET['redirect'])) {
                         if ($_GET['redirect'] == "true") {
@@ -194,14 +217,6 @@ session_start();
                     }
 
 
-                    require_once('config.php');
-                    $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
-
-                    if (mysqli_connect_errno()) {
-                        die(mysqli_connect_error());
-                    }
-
-
                     $sql = "SELECT DISTINCT fk_productid FROM users_message where fk_custUserId = '" . $_SESSION['user_id'] . "' or fk_sellerUserId = '" . $_SESSION['user_id'] . "'";
 
 
@@ -243,6 +258,7 @@ session_start();
                                     echo "<h5>Product name: " . $ptitle . "</h5>";
                                     echo "<h6>Seller: " . $displayseller . "</h6>";
                                     echo " </div> </div> </div>";
+
                                 }
                             }
 
@@ -317,18 +333,44 @@ session_start();
                     <!--                        </div>-->
                     <!--                    </div>-->
                 </div>
+
+                <script>
+
+                    function handle(e){
+
+                        var key=e.keyCode || e.which;
+                        if (key===13){
+
+                            var msg = document.getElementById("write_msg").value;
+                            // console.log(msg);
+
+                            var rusr = document.getElementById("sendingto").textContent;
+                            var sendpid = document.getElementById("sendpid").textContent;
+
+                            $.get("<?php echo dirname($_SERVER['PHP_SELF']);?>/setMessage.php?rUsr="+rusr+"&pid="+sendpid+"&msg="+msg,function (ret) {
+                                console.log(ret);
+                            })
+
+                            document.getElementById("write_msg").value="";
+                        }
+                    }
+                </script>
                 <div class="type_msg">
                     <div class="input_msg_write">
-                        <input type="text" class="write_msg" placeholder="Type a message"/>
-                        <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o"
-                                                                      aria-hidden="true"></i></button>
+                        <input onkeypress="handle(event)" id ="write_msg" type="text" class="write_msg" placeholder="Type a message"/>
+
                     </div>
+                </div>
+                <div id="sendingto"></div>
+                <div id="sendpid"></div>
+
+
                 </div>
             </div>
         </div>
 
 
-        <p class="text-center top_spac"> Design by <a target="_blank" href="#">Sunil Rajput</a></p>
+<!--        <p class="text-center top_spac"> Design by <a target="_blank" href="#">Sunil Rajput</a></p>-->
 
     </div>
 </div>

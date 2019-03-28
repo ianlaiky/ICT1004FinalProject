@@ -30,22 +30,19 @@ if (isset($_SESSION['username'])) {
 
         }}
 
-//    echo $sellertrue;
 
 $sql="";
 
-//    if($sellertrue==0){
+
         $sql = "Select * from users_message where (fk_custUserId = '".$_SESSION['user_id']."' or fk_sellerUserId = '".$_SESSION['user_id']."') and fk_productid = ".$_GET['productid'];
 
-//    }else{
-//
-//        $sql = "Select * from users_message where fk_sellerUserId = '".$_SESSION['user_id']."' and fk_productid = ".$_GET['productid'];
-//
-//    }
+
 
 
 
     $data = array();
+
+    $otheruser = "";
 
     if ($result = mysqli_query($connection, $sql)) {
         while ($row = mysqli_fetch_assoc($result)) {
@@ -69,20 +66,28 @@ $sql="";
                 $tempdata['msgDirection'] = $row['msgDirection'];
             }
 
-
+            if($otheruser==""){
+                if($tempdata['fk_sellerUserId']!=$_SESSION['user_id']){
+                    $otheruser = $tempdata['fk_sellerUserId'];
+                }else{
+                    $otheruser =  $tempdata['fk_custUserId'];
+                }
+            }
 
             array_push($data,$tempdata);
 
 
         }
     }
+    array_push($data,$otheruser);
+    array_push($data,$_GET['productid']);
 
     header("Access-Control-Allow-Origin: *");
     header("Content-Type: application/json; charset=UTF-8");
     echo json_encode(
         $data
     );
-
+    $connection->close();
     
 }else{
     echo "Not logged in";
