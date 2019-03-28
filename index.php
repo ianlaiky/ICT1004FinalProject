@@ -18,8 +18,8 @@
 
 <body>
   <header>
-    <?php include 'header.inc.php'; 
-    require_once('C:\xampp\htdocs\phpProject\config.php');
+    <?php include 'header.inc.php';
+    require_once('config.php');
     $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
 
     if (mysqli_connect_errno() ){
@@ -27,7 +27,7 @@
     }
     ?>
   </header>
-  <article>
+<!--  <article>-->
       <!-- Page Content -->
       <div class="container">
 
