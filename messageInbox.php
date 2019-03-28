@@ -44,19 +44,25 @@ session_start();
                 console.log(data);
                 console.log(document.getElementById("currentCount").textContent);
 
-                document.getElementById("sendingto").textContent = data[data.length-2];
-                document.getElementById("sendpid").textContent = data[data.length-1];
+                if(document.getElementById("sendingto").textContent==""){
+                    document.getElementById("sendingto").textContent = data[data.length - 2];
+
+                }
+                if(document.getElementById("sendpid").textContent==""){
+                    document.getElementById("sendpid").textContent = data[data.length - 1];
+
+                }
+
 
 
 
                 // keep current text count; if current count is same as server, dont update
                 var currentCount = document.getElementById("currentCount").textContent;
-                document.getElementById("currentCount").textContent = data.length-2;
-
+                document.getElementById("currentCount").textContent = data.length - 2;
 
 
                 // i = current count, if new data, only start from the current count
-                for (var i = currentCount; i < data.length-2; i++) {
+                for (var i = currentCount; i < data.length - 2; i++) {
 
                     if (data[i].msgDirection == "from") {
 
@@ -112,7 +118,7 @@ session_start();
 
         }
 
-// do not comment this
+        // do not comment this
         function gettest(id) {
 
             location.href = location.origin + location.pathname + '?pid=' + id;
@@ -124,10 +130,12 @@ session_start();
         .currentCount {
             visibility: hidden;
         }
-        #sendingto{
+
+        #sendingto {
             visibility: hidden;
         }
-        #sendpid{
+
+        #sendpid {
             visibility: hidden;
         }
     </style>
@@ -147,6 +155,8 @@ session_start();
 </header>
 
 <body>
+<div id="sendingto"></div>
+<div id="sendpid"></div>
 <div class="currentCount" id="currentCount">0</div>
 <div class="container">
     <h3 class=" text-center">Messaging</h3>
@@ -160,6 +170,7 @@ session_start();
 
                 </div>
                 <div class="inbox_chat">
+
                     <?php
 
                     require_once('config.php');
@@ -169,6 +180,8 @@ session_start();
                         die(mysqli_connect_error());
                     }
 
+
+                    // run this if new chat with new product
 
                     if (isset($_GET['redirect'])) {
                         if ($_GET['redirect'] == "true") {
@@ -189,9 +202,12 @@ session_start();
                                     while ($rowexistingChat = mysqli_fetch_assoc($resultexistingChat)) {
                                         $sqlgetseller = "select * from users where user_id='" . $rowexistingChat['userid'] . "'";
                                         $getseller = "";
+                                        $getsellerid = "";
                                         if ($resultgetseller = mysqli_query($connection, $sqlgetseller)) {
                                             while ($rowgetseller = mysqli_fetch_assoc($resultgetseller)) {
                                                 $getseller = $rowgetseller['name'];
+                                                $getsellerid = $rowgetseller['user_id'];
+
 
                                             }
                                         }
@@ -206,6 +222,20 @@ session_start();
                                             echo " </div> </div> </div>";
 
                                         }
+
+
+                                        ?>
+
+                                        <script>
+
+                                                document.getElementById("sendingto").textContent="<?php echo $getsellerid?>";
+
+
+
+                                        </script>
+
+
+                                        <?php
                                     }
 
 
@@ -336,10 +366,10 @@ session_start();
 
                 <script>
 
-                    function handle(e){
+                    function handle(e) {
 
-                        var key=e.keyCode || e.which;
-                        if (key===13){
+                        var key = e.keyCode || e.which;
+                        if (key === 13) {
 
                             var msg = document.getElementById("write_msg").value;
                             // console.log(msg);
@@ -347,32 +377,32 @@ session_start();
                             var rusr = document.getElementById("sendingto").textContent;
                             var sendpid = document.getElementById("sendpid").textContent;
 
-                            $.get("<?php echo dirname($_SERVER['PHP_SELF']);?>/setMessage.php?rUsr="+rusr+"&pid="+sendpid+"&msg="+msg,function (ret) {
+                            $.get("<?php echo dirname($_SERVER['PHP_SELF']);?>/setMessage.php?rUsr=" + rusr + "&pid=" + sendpid + "&msg=" + msg, function (ret) {
                                 console.log(ret);
                             })
 
-                            document.getElementById("write_msg").value="";
+                            document.getElementById("write_msg").value = "";
                         }
                     }
                 </script>
                 <div class="type_msg">
                     <div class="input_msg_write">
-                        <input onkeypress="handle(event)" id ="write_msg" type="text" class="write_msg" placeholder="Type a message"/>
+                        <input onkeypress="handle(event)" id="write_msg" type="text" class="write_msg"
+                               placeholder="Type a message"/>
 
                     </div>
                 </div>
-                <div id="sendingto"></div>
-                <div id="sendpid"></div>
 
 
-                </div>
+
             </div>
         </div>
-
-
-<!--        <p class="text-center top_spac"> Design by <a target="_blank" href="#">Sunil Rajput</a></p>-->
-
     </div>
+
+
+    <!--        <p class="text-center top_spac"> Design by <a target="_blank" href="#">Sunil Rajput</a></p>-->
+
+</div>
 </div>
 
 </body>
