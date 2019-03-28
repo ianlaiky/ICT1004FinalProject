@@ -16,7 +16,7 @@
 
 </head>
 
-<body>
+
   <header>
     <?php include 'header.inc.php';
     require_once('config.php');
@@ -27,6 +27,8 @@
     }
     ?>
   </header>
+
+<body>
 <!--  <article>-->
       <!-- Page Content -->
       <div class="container">
@@ -311,12 +313,12 @@
   </div>
   <!-- /.container -->
 
-  <?php include 'footer.inc.php' ?>
+
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
-
+<?php include 'footer.inc.php' ?>
 </html>
