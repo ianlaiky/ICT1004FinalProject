@@ -81,9 +81,9 @@
                   <?php
                     $cnt = 1;
                     $type = "";
+                    $currDate = date('Y-m-d');
                     if (isset($_GET['type'])) {
                         $type = $_GET['type'];
-
                         $sql = "SELECT * FROM product WHERE product.type='$type' ORDER BY RAND() LIMIT 3;";
 
                         if ($result = mysqli_query($connection, $sql)) {
@@ -149,7 +149,7 @@
             <div class="row">
               <?php
                   $type = "";
-                  $sql = "SELECT * FROM product";
+                  $sql = "SELECT * FROM product WHERE product.expiry > '$currDate' AND product.is_active = 'yes'";
                   if (isset($_GET['type'])) {
                       $type = $_GET['type'];
 
