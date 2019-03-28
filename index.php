@@ -31,7 +31,7 @@
       <!-- Page Content -->
       <div class="container">
 
-        <div class="row">
+      <div class="row">
 
           <div class="col-lg-3">
 
@@ -303,9 +303,13 @@
         <!-- /.row -->
 
       </div>
-      <!-- /.container -->
-  </article>
-  
+      <!-- /.col-lg-12 -->
+
+
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
 
   <?php include 'footer.inc.php' ?>
 

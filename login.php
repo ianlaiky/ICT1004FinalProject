@@ -22,21 +22,22 @@
 				$row = $result->fetch_assoc();
 				$hash = $row['password'];
 				$verified = $row['is_verified'];
-				$name = $row['name'];
-				$email = $row['email'];
-				$gender = $row['gender'];
-				$contact = $row['contact'];
-				$user_id = $row['user_id'];
-				$profile_picture = base64_encode($row['profile_picture']);
 
 				if (password_verify($password, $hash) and $verified == 1) {
 					$_SESSION['username'] = $username;
-					$_SESSION['name'] = $name;
-					$_SESSION['email'] = $email;
-					$_SESSION['gender'] = $gender;
-					$_SESSION['contact'] = $contact;
-					$_SESSION['user_id'] = $user_id;
-					$_SESSION['profile_picture'] = $profile_picture;
+					$_SESSION['name'] = $row['name'];
+					$_SESSION['email'] = $row['email'];
+					$_SESSION['gender'] = $row['gender'];
+					$_SESSION['contact'] = ($row['contact'] == 0 ? "" : $row['contact']);
+					$_SESSION['user_id'] = $row['user_id'];
+					if (!empty($row['profile_picture'])) {
+						$_SESSION['profile_picture'] = '"data:image/png;base64,'.base64_encode($row['profile_picture']).'" width="150" height="150"';
+					}
+					else{
+						$_SESSION['profile_picture'] = "img/user.png";
+					}
+					// $_SESSION['profile_picture'] = base64_encode($row['profile_picture']);
+					
 					header("Location: index.php");
 				}
 				else{
@@ -71,6 +72,10 @@
 	<?php include 'header.inc.php'; ?>
 	<br><br>
 	<div class="container">
+		<h1>Login to enjoy online shopping!</h1>
+		<br>
+		<hr>
+		<br>
 		<form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="username">Username:</label>
