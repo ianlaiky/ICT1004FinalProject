@@ -43,7 +43,7 @@
               echo '<li class="nav-item dropdown">';
               echo '<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Items</a>';
               echo '<div class="dropdown-menu">';
-              echo '<a class="dropdown-item" href="#">My items</a>';
+              echo '<a class="dropdown-item" href="user_items.php">My items</a>';
               echo '<a class="dropdown-item" href="create_product.php">Sell an item</a>';
               echo '</div>';
               echo '</li>';
