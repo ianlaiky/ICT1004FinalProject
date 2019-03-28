@@ -37,6 +37,18 @@
                 Home
             </a>
         </li>
+        <!--For products-->
+        <?php
+            if (isset($_SESSION['username'])) {
+              echo '<li class="nav-item dropdown">';
+              echo '<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Items</a>';
+              echo '<div class="dropdown-menu">';
+              echo '<a class="dropdown-item" href="#">My listed products</a>';
+              echo '<a class="dropdown-item" href="create_product.php">Sell an item</a>';
+              echo '</div>';
+              echo '</li>';
+            }
+        ?>
         <li <?=linkActive($ref1)?>>
             <a class="nav-link" href=<?php echo $ref1.".php" ?>>
                 <?php echo $ref1Name ?>
