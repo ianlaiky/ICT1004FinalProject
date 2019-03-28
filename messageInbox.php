@@ -73,24 +73,6 @@ session_start();
                         var currmsg = document.getElementById("msg_history");
                         currmsg.appendChild(new_roww);
 
-                        //
-                        // var new_row = document.createElement('div');
-                        // new_row.className = "textcont";
-                        //
-                        // var new_p = document.createElement('p');
-                        // var newContent = document.createTextNode(data[i].message_content);
-                        // new_p.appendChild(newContent);
-                        // new_row.appendChild(new_p);
-                        //
-                        // var userdat = document.createElement('span');
-                        // var userdatcont = document.createTextNode("Seller");
-                        // userdat.className = "move-left";
-                        // userdat.appendChild(userdatcont);
-                        // new_row.appendChild(userdat);
-                        //
-                        //
-                        // var currmsg = document.getElementById("msg_history");
-                        // currmsg.appendChild(new_row);
 
                     } else {
 
@@ -113,25 +95,6 @@ session_start();
                         currmsgs.appendChild(new_rowww);
 
 
-                        //
-                        // var new_row = document.createElement('div');
-                        // new_row.className = "textcont darker";
-                        //
-                        // var new_p = document.createElement('p');
-                        // var newContent = document.createTextNode(data[i].message_content);
-                        // new_p.appendChild(newContent);
-                        // new_row.appendChild(new_p);
-                        //
-                        // var userdat = document.createElement('span');
-                        // var userdatcont = document.createTextNode("You");
-                        // userdat.className = "move-right";
-                        // userdat.appendChild(userdatcont);
-                        // new_row.appendChild(userdat);
-                        //
-                        // var currmsg = document.getElementById("msg_history");
-                        // currmsg.appendChild(new_row);
-
-
                     }
                 }
 
@@ -141,11 +104,9 @@ session_start();
         }
 
 
+        function gettest(id) {
 
-
-        function gettest(id){
-
-            location.href = location.origin + location.pathname + '?pid='+id;
+            location.href = location.origin + location.pathname + '?pid=' + id;
         }
 
     </script>
@@ -186,21 +147,62 @@ session_start();
                 <div class="inbox_chat">
                     <?php
 
+                    if (isset($_GET['redirect'])) {
+                        if ($_GET['redirect'] == "true") {
+
+
+                            $existingchat = 0;
+                            $sqlFindexistingChat = "select * from users_message where (fk_custUserId = '" . $_SESSION['user_id'] . "' or fk_sellerUserId = '" . $_SESSION['user_id'] . "') and fk_productid = " . $_GET['pid'];
+
+                            if ($resultexistingChat = mysqli_query($connection, $sqlFindexistingChat)) {
+                                while ($rowexistingChat = mysqli_fetch_assoc($resultexistingChat)) {
+                                    if ($rowexistingChat > 0) {
+                                        $existingchat = 1;
+                                    }
+                                }
+
+                                $sqlgetnewp = "select * from product where product_id='" . $_GET['pid'] . "'";
+                                if ($resultexistingChat = mysqli_query($connection, $sqlgetnewp)) {
+                                    while ($rowexistingChat = mysqli_fetch_assoc($resultexistingChat)) {
+                                        $sqlgetseller = "select * from users where user_id='" . $rowexistingChat['userid'] . "'";
+                                        $getseller = "";
+                                        if ($resultgetseller = mysqli_query($connection, $sqlgetseller)) {
+                                            while ($rowgetseller = mysqli_fetch_assoc($resultgetseller)) {
+                                                $getseller = $rowgetseller['name'];
+
+                                            }
+                                        }
+
+                                        if ($existingchat == 0) {
+
+                                            echo "<div onclick=\"gettest(" . $_GET['pid'] . ")\" class=\"chat_list active_chat\">";
+                                            echo "<div class=\"chat_people\">";
+                                            echo "<div class=\"chat_ib\">";
+                                            echo "<h5>Product name: " . $rowexistingChat['title'] . "</h5>";
+                                            echo "<h6>Seller: " . $getseller . "</h6>";
+                                            echo " </div> </div> </div>";
+
+                                        }
+                                    }
+
+
+                                }
+                            }
+
+
+                        }
+                    }
+
+
                     require_once('config.php');
                     $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
 
                     if (mysqli_connect_errno()) {
                         die(mysqli_connect_error());
                     }
-                        //todo
-                    $useryupe = "cust";
-                    $sqp = "";
 
-                    if ($useryupe == "cust") {
-                        $sql = "SELECT DISTINCT fk_productid FROM users_message where fk_custUserId =(select user_id from users where username = '" . $_SESSION['username'] . "')";
-                    } else {
-                        $sql = "SELECT DISTINCT fk_productid FROM users_message where fk_sellerUserId = (select user_id from users where username = '" . $_SESSION['username'] . "')";
-                    }
+
+                    $sql = "SELECT DISTINCT fk_productid FROM users_message where fk_custUserId = '" . $_SESSION['user_id'] . "' or fk_sellerUserId = '" . $_SESSION['user_id'] . "'";
 
 
                     if ($result = mysqli_query($connection, $sql)) {
@@ -212,13 +214,34 @@ session_start();
 
                             if ($result1 = mysqli_query($connection, $sql1)) {
                                 while ($row1 = mysqli_fetch_assoc($result1)) {
-
                                     $ptitle = $row1['title'];
+                                    $puserid = $row1['userid'];
+                                    $sellername = "";
 
-                                    echo "<div onclick=\"gettest(".$pidd.")\" class=\"chat_list active_chat\">";
+                                    $sql3 = "select * from users where user_id='" . $puserid . "'";
+
+                                    if ($result3 = mysqli_query($connection, $sql3)) {
+                                        while ($row3 = mysqli_fetch_assoc($result3)) {
+
+                                            $sellername = $row3['name'];
+
+                                        }
+                                    }
+
+
+                                    $displayseller = "";
+                                    if ($puserid == $_SESSION['user_id']) {
+                                        $displayseller = "You";
+                                    } else {
+                                        $displayseller = $sellername;
+                                    }
+
+
+                                    echo "<div onclick=\"gettest(" . $pidd . ")\" class=\"chat_list active_chat\">";
                                     echo "<div class=\"chat_people\">";
                                     echo "<div class=\"chat_ib\">";
-                                    echo "<h5>Product name: ".$ptitle."</h5>";
+                                    echo "<h5>Product name: " . $ptitle . "</h5>";
+                                    echo "<h6>Seller: " . $displayseller . "</h6>";
                                     echo " </div> </div> </div>";
                                 }
                             }
@@ -226,23 +249,24 @@ session_start();
                         }
                     }
 
+
                     ?>
 
 
-                    <button onclick="gettest()">sdfds</button>
+                    <!--                    <button onclick="gettest()">sdfds</button>-->
 
 
-<!--                    <div class="chat_list active_chat">-->
-<!--                        <div class="chat_people">-->
-<!--                            <div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png"-->
-<!--                                                       alt="sunil"></div>-->
-<!--                            <div class="chat_ib">-->
-<!--                                <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>-->
-<!--                                <p>Test, which is a new approach to have all solutions-->
-<!--                                    astrology under one roof.</p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <!--                    <div class="chat_list active_chat">-->
+                    <!--                        <div class="chat_people">-->
+                    <!--                            <div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png"-->
+                    <!--                                                       alt="sunil"></div>-->
+                    <!--                            <div class="chat_ib">-->
+                    <!--                                <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>-->
+                    <!--                                <p>Test, which is a new approach to have all solutions-->
+                    <!--                                    astrology under one roof.</p>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
 
 
                 </div>

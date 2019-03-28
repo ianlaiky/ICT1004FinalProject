@@ -17,8 +17,33 @@ if (isset($_SESSION['username'])) {
         die(mysqli_connect_errno());
     }
 
+    $sellertrue = 0;
 
-    $sql = "Select * from users_message where fk_custUserId = (select user_id from users where username = '".$_SESSION['username']."') and fk_productid = ".$_GET['productid'];
+    $sql1 = "select * from product where userid = '".$_SESSION['user_id']."' and product_id = '".$_GET['productid']."'";
+    if ($result1 = mysqli_query($connection, $sql1)) {
+        while ($row1 = mysqli_fetch_assoc($result1)) {
+            if($row1 > 0){
+                $sellertrue =1;
+            }
+
+
+
+        }}
+
+//    echo $sellertrue;
+
+$sql="";
+
+//    if($sellertrue==0){
+        $sql = "Select * from users_message where (fk_custUserId = '".$_SESSION['user_id']."' or fk_sellerUserId = '".$_SESSION['user_id']."') and fk_productid = ".$_GET['productid'];
+
+//    }else{
+//
+//        $sql = "Select * from users_message where fk_sellerUserId = '".$_SESSION['user_id']."' and fk_productid = ".$_GET['productid'];
+//
+//    }
+
+
 
     $data = array();
 
@@ -31,7 +56,21 @@ if (isset($_SESSION['username'])) {
             $tempdata['fk_productid'] = $row['fk_productid'];
             $tempdata['fk_sellerUserId'] = $row['fk_sellerUserId'];
             $tempdata['fk_custUserId'] = $row['fk_custUserId'];
-            $tempdata['msgDirection'] = $row['msgDirection'];
+
+
+            if($sellertrue==1){
+                if($row['msgDirection']=="to"){
+                    $tempdata['msgDirection']="from";
+                }else{
+                    $tempdata['msgDirection']="to";
+                }
+
+            }else{
+                $tempdata['msgDirection'] = $row['msgDirection'];
+            }
+
+
+
             array_push($data,$tempdata);
 
 

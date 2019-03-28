@@ -57,7 +57,7 @@
 					<li class="list-group-item">Condition: <?php echo $condition ?></li>
 					<li class="list-group-item">Trading place: <?php echo $trading_place ?></li>
 				</ul>
-				<button onclick="location.href='index.php';" style="position: absolute; right: 30; bottom:0; " type="button" class="btn btn-dark btn-lg">Chat to buy now!</button>
+				<a href='messageInbox.php?pid=<?php echo $productId?>&redirect=true' style="position: absolute; right: 30; bottom:0; " type="button" class="btn btn-dark btn-lg">Chat to buy now!</a>
     		</div>
     	</div>
     </div>
