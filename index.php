@@ -16,10 +16,10 @@
 
 </head>
 
-<body>
+
   <header>
-    <?php include 'header.inc.php'; 
-    require_once('C:\xampp\htdocs\phpProject\config.php');
+    <?php include 'header.inc.php';
+    require_once('config.php');
     $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
 
     if (mysqli_connect_errno() ){
@@ -27,7 +27,9 @@
     }
     ?>
   </header>
-  <article>
+
+<body>
+<!--  <article>-->
       <!-- Page Content -->
       <div class="container">
 
@@ -158,7 +160,7 @@
                             if ($row['type'] == $type) {
                                 echo '<div class="col-lg-4 col-md-6 mb-4">';
                                 echo '<div class="card h-100">';
-                                echo '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($row['picture']).'">';
+                                echo '<a href="product.php?product_id='.$row['product_id'].'"><img class="card-img-top" src="data:image/png;base64,'.base64_encode($row['picture']).'"></a>';
                                 //echo '<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>';
                                 echo '<div class="card-body">';
                                 echo '<h4 class="card-title">'.$row['title'].'</h4>';
@@ -180,7 +182,7 @@
                       while ($row = mysqli_fetch_assoc($result)) {
                               echo '<div class="col-lg-4 col-md-6 mb-4">';
                               echo '<div class="card h-100">';
-                              echo '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($row['picture']).'">';
+                              echo '<a href="product.php?product_id='.$row['product_id'].'"><img class="card-img-top" src="data:image/png;base64,'.base64_encode($row['picture']).'"></a>';
                               //echo '<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>';
                               echo '<div class="card-body">';
                               echo '<h4 class="card-title">'.$row['title'].'</h4>';
@@ -311,12 +313,12 @@
   </div>
   <!-- /.container -->
 
-  <?php include 'footer.inc.php' ?>
+
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
-
+<?php include 'footer.inc.php' ?>
 </html>
