@@ -12,6 +12,8 @@
   $type = $title = $description = $picture = $condition = $age = $price = $trading_place = $userid = "";
   $titleBool = $descriptionBool = $priceBool = $trading_placeBool = "";
   $titleErr = $descriptionErr = $priceErr = $trading_placeErr = "";
+  $currDate = date('Y-m-d');
+  $nextDate = date('Y-m-d', strtotime($currDate . ' +1 day'));
   if($_SERVER["REQUEST_METHOD"] == "POST")
   {
     require_once('C:\xampp\htdocs\phpProject\config.php');
@@ -185,6 +187,13 @@
                 <span class="error"> <?php echo $trading_placeErr;?></span>
               </div>
             </div>
+            <!--<div class="form-group row">
+              <label for="enddate" class="col-sm-2 col-form-label">Expiry date</label>
+              <div class="col-sm-10">
+                <input type="date" class="form-control" name="enddate" min="<?php echo $nextDate?>">
+                <span class="error"></span>
+              </div>
+            </div>-->
             <div class="form-group row">
               <button type="submit" class="btn btn-primary" value="Send File">Submit</button>
             </div>
