@@ -1,7 +1,32 @@
 <?php session_start() ?>
 <?php 
-	$productName = $price = $expiry = $condition = $venue = $productDesc = "";
+	$title = $price = $expiry = $condition = $trading_place = $description = $picture = "";
+	//Hard to product id = 3;
+	$productId = $_GET['product_id'];
 	//Using get['product_id'], search db for the above info and echo out to html. 
+	require_once('config.php');
+	$connection = mysqli_connect(DBHOST, DBUSER, DBPASS,DBNAME);
+    if (mysqli_connect_errno() ){
+        die( mysqli_connect_error() );
+    }
+
+    // $sql = "SELECT * FROM product where product_id = ?";
+    $sql = mysqli_prepare($connection, "SELECT * FROM product where product_id = ?");
+    $sql->bind_param('s', $_GET['product_id']);
+	$sql->execute(); 
+	$result = $sql->get_result();
+    if ($result) {
+    	$row = $result->fetch_assoc();
+    	$title = $row['title'];
+    	$price = $row['price'];
+    	$condition = $row['condition'];
+    	$trading_place = $row['trading_place'];
+    	$description = $row['description'];
+    	$picture = '"data:image/png;base64,'.base64_encode($row['picture']).'" width="520" height="400"';
+    }
+    else{
+    	echo "Fail";
+    }
  ?>
 <html lang="en">
 <head>
@@ -21,17 +46,18 @@
     <div class="container">
     	<div class="row">
     		<div class="col-md-7">
-    			<img style="border: 1px solid #ddd; border-radius: 4px; padding: 10px" src="img/user.png">
+    			<img style="border: 1px solid #ddd; border-radius: 4px; padding: 10px" src=<?php echo $picture ?>>
     		</div>
     		<div class="col-md-5">
     			<ul class="list-group">
-					<h1>Product Name</h1>
+					<h1><?php echo $title ?></h1>
 					<br>
-					<li class="list-group-item">Price</li>
+					<li class="list-group-item">Price: $<?php echo $price ?></li>
 					<li class="list-group-item">Item listing expiring in: </li>
-					<li class="list-group-item">Condition</li>
-					<li class="list-group-item">Trading place</li>
+					<li class="list-group-item">Condition: <?php echo $condition ?></li>
+					<li class="list-group-item">Trading place: <?php echo $trading_place ?></li>
 				</ul>
+				<button onclick="location.href='index.php';" style="position: absolute; right: 30; bottom:0; " type="button" class="btn btn-dark btn-lg">Chat to buy now!</button>
     		</div>
     	</div>
     </div>
@@ -40,12 +66,7 @@
     	<hr>
     	<h1>Product Description</h1>
     	<br>
-    	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-    	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-    	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-    	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    	<p><?php echo $description ?></p>
     </div>
     <br>
     <br>
