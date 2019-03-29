@@ -159,7 +159,7 @@ session_start();
 <div id="sendpid"></div>
 <div class="currentCount" id="currentCount">0</div>
 <div class="container">
-    <h3 class=" text-center">Messaging</h3>
+    
     <div class="messaging">
         <div class="inbox_msg">
             <div class="inbox_people">
@@ -188,11 +188,14 @@ session_start();
 
 
                             $existingchat = 0;
+
                             $sqlFindexistingChat = "select * from users_message where (fk_custUserId = '" . $_SESSION['user_id'] . "' or fk_sellerUserId = '" . $_SESSION['user_id'] . "') and fk_productid = " . $_GET['pid'];
 
                             if ($resultexistingChat = mysqli_query($connection, $sqlFindexistingChat)) {
                                 while ($rowexistingChat = mysqli_fetch_assoc($resultexistingChat)) {
                                     if ($rowexistingChat > 0) {
+
+
                                         $existingchat = 1;
                                     }
                                 }
@@ -247,12 +250,25 @@ session_start();
                     }
 
 
-                    $sql = "SELECT DISTINCT fk_productid FROM users_message where fk_custUserId = '" . $_SESSION['user_id'] . "' or fk_sellerUserId = '" . $_SESSION['user_id'] . "'";
-
+                    $sql = "SELECT DISTINCT fk_productid,fk_custUserId FROM users_message where fk_custUserId = '" . $_SESSION['user_id'] . "' or fk_sellerUserId = '" . $_SESSION['user_id'] . "'";
+                    $buyername="";
 
                     if ($result = mysqli_query($connection, $sql)) {
                         while ($row = mysqli_fetch_assoc($result)) {
+                            if($_SESSION['user_id']!=$row['fk_custUserId']){
 
+
+                                $sqlgetname = "select * from users where user_id ='".$row['fk_custUserId']."'";
+
+
+                                if ($resultgetname = mysqli_query($connection, $sqlgetname)) {
+                                while ($rowgetname = mysqli_fetch_assoc($resultgetname)) {
+
+                                    $buyername=$rowgetname['name'];
+
+                                    }}
+
+                            }
                             $pidd = $row['fk_productid'];
 
                             $sql1 = "select * from product where product_id='" . $pidd . "'";
@@ -276,9 +292,9 @@ session_start();
 
                                     $displayseller = "";
                                     if ($puserid == $_SESSION['user_id']) {
-                                        $displayseller = "You";
+                                        $displayseller = "Buyer: ".$buyername;
                                     } else {
-                                        $displayseller = $sellername;
+                                        $displayseller ="Seller: ". $sellername;
                                     }
 
 
@@ -286,7 +302,7 @@ session_start();
                                     echo "<div class=\"chat_people\">";
                                     echo "<div class=\"chat_ib\">";
                                     echo "<h5>Product name: " . $ptitle . "</h5>";
-                                    echo "<h6>Seller: " . $displayseller . "</h6>";
+                                    echo "<h6>" . $displayseller . "</h6>";
                                     echo " </div> </div> </div>";
 
                                 }
