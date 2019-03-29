@@ -89,14 +89,18 @@
                     while ($row = mysqli_fetch_assoc($result)) {
                         if ($row['type'] == $relevantItems) {
                             echo '<div class="col-md-3">';
-                            echo '<div class="card h-60">';
-                            echo '<a href="product.php?product_id='.$row['product_id'].'"><img class="card-img-top" src="data:image/png;base64,'.base64_encode($row['picture']).'"></a>';
+                            echo '<a href="product.php?product_id='.$row['product_id'].'&user_id='.$row['userid'].'">';
+                            echo '<div class="card h-50">';
+                            echo '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($row['picture']).'">';
                             echo '<div class="card-body">';
-                            echo '<h4 class="card-title">'.$row['title'].'</h4>';
-                            echo '<p>Price: '.$row['price'].'</p>';
+                            echo '<div class="card-text">'.$row['title'].'</div>';
+                            echo '<div class="card-text">Price: '.$row['price'].'</div>';
                             echo '</div>';
                             echo '</div>';
+                            echo '</a>';
                             echo '</div>';
+
+                            
                         }           
                     }
                   }

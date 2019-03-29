@@ -3,10 +3,6 @@
          
 session_start();
 	$username = $password =$wrong= "";
-        
-        
-             
-          
 	require_once('config.php');
 	$connection = mysqli_connect(DBHOST, DBUSER, DBPASS,DBNAME);
 	if (mysqli_connect_errno() ){
@@ -44,19 +40,15 @@ session_start();
 					}
 					else{
 						$_SESSION['profile_picture'] = "img/user.png";
-					}
-					// $_SESSION['profile_picture'] = base64_encode($row['profile_picture']);
-					
+					}					
 					header("Location: index.php");
 				}
 				else{
-//					echo "you are not logged in";
-                                    $wrong = "The credentials that you've entered doesn't match any account. Sign up for an account.";
+                    $wrong = "The credentials that you've entered doesn't match any account. Sign up for an account.";
 				}
 			}
 			else{
-//				echo "account dont exist";
-                            $wrong = "The credentials that you've entered doesn't match any account. Sign up for an account.";
+                $wrong = "The credentials that you've entered doesn't match any account. Sign up for an account.";
 			}
 	    }
 	    else{
@@ -78,20 +70,19 @@ session_start();
 
 	<!-- Custom styles for this template -->
 	<link href="css/shop-homepage.css" rel="stylesheet">
-        <style>
-            .help-block{
-                color:red;
-            }
-            </style>
+    <style>
+        .help-block{
+            color:red;
+        }
+    </style>
 </head>
 <body>
 	<?php include 'header.inc.php'; ?>
 	<br><br>
 	<div class="container">
-		<h1>Welcome to Fast Trade! Please login.</h1>
-		<br>
-		<hr>
-		<br>
+		<h1>Login to start shopping!</h1>
+
+		<br><hr>
 		<form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="username">Username:</label>
@@ -111,7 +102,9 @@ session_start();
 				<button type="submit" name="submit" class="btn btn-info">Login</button>
 				</div>
 			</div>
+
 		</form>
+		<p>Don't have an account?<a href="register.php"> Sign up now! </a></p>	
 	</div>
 	<?php include 'footer.inc.php' ?>
 	  <!-- Bootstrap core JavaScript -->
