@@ -159,18 +159,19 @@
                         while ($row = mysqli_fetch_assoc($result)) {
                             if ($row['type'] == $type) {
                                 echo '<div class="col-lg-4 col-md-6 mb-4">';
+                                echo '<a href="product.php?product_id='.$row['product_id'].'&user_id='.$row['userid'].'">';
                                 echo '<div class="card h-100">';
-                                echo '<a href="product.php?product_id='.$row['product_id'].'"><img class="card-img-top" src="data:image/png;base64,'.base64_encode($row['picture']).'"></a>';
+                                echo '<img class="card-img-top img-responsive" src="data:image/png;base64,'.base64_encode($row['picture']).'">';
                                 //echo '<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>';
                                 echo '<div class="card-body">';
-                                echo '<h4 class="card-title">'.$row['title'].'</h4>';
-                                echo '<h5>Price: '.$row['price'].'</h5>';
-                                echo '<p class="card-text">'.$row['description'].'</p>';
+                                echo '<div class="card-text">'.$row['title'].'</div>';
+                                echo '<div class="card-text">S$'.$row['price'].'</div>';
                                 echo '</div>';
                                 // echo '<div class="card-footer">';
                                 // echo '<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>';
                                 // echo '</div>';
                                 echo '</div>';
+                                echo '</a>';
                                 echo '</div>';
                             }           
                         }
@@ -181,18 +182,19 @@
                     if ($result = mysqli_query($connection, $sql)) {
                       while ($row = mysqli_fetch_assoc($result)) {
                               echo '<div class="col-lg-4 col-md-6 mb-4">';
+                              echo '<a href="product.php?product_id='.$row['product_id'].'&user_id='.$row['userid'].'">';
                               echo '<div class="card h-100">';
-                              echo '<a href="product.php?product_id='.$row['product_id'].'"><img class="card-img-top" src="data:image/png;base64,'.base64_encode($row['picture']).'"></a>';
+                              echo '<img class="card-img-top img-responsive" src="data:image/png;base64,'.base64_encode($row['picture']).'">';
                               //echo '<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>';
                               echo '<div class="card-body">';
-                              echo '<h4 class="card-title">'.$row['title'].'</h4>';
-                              echo '<h5>Price: '.$row['price'].'</h5>';
-                              echo '<p class="card-text">'.$row['description'].'</p>';
+                              echo '<div class="card-text">'.$row['title'].'</div>';
+                              echo '<div class="card-text">S$'.$row['price'].'</div>';
                               echo '</div>';
                               // echo '<div class="card-footer">';
                               // echo '<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>';
                               // echo '</div>';
                               echo '</div>';
+                              echo '</a>';
                               echo '</div>';     
                       }
                   }
@@ -314,11 +316,12 @@
   <!-- /.container -->
 
 
-
+  
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
+<br>
 <?php include 'footer.inc.php' ?>
 </html>

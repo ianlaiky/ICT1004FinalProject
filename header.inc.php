@@ -32,11 +32,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
+        
         <li <?=linkActive("index")?>>
             <a class="nav-link" href="index.php">
                 Home
             </a>
         </li>
+
         <!--For products-->
         <?php
             if (isset($_SESSION['username'])) {
@@ -63,7 +65,20 @@
                 <?php echo $ref2Name ?>
             </a>
         </li>
+        <form class="form-inline my-2 my-lg-0">
+            <input id="search" class="form-control ml-sm-5" type="search" placeholder="Search" aria-label="Search">
+        </form>
       </ul>
     </div>
   </div>
 </nav>
+
+<script>
+    document.getElementById("search").onkeypress = function (e){
+        var search = document.getElementById("search").value;
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            window.location.href = "searchProduct.php?search=" + search;;       
+        }
+    }
+</script>

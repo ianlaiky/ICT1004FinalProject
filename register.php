@@ -151,11 +151,11 @@ mysqli_close($connection);
         </style>
     </head>
     <body>
-<?php include 'header.inc.php'; ?>
+    <?php include 'header.inc.php'; ?>
         <div class="container">
             <br><br>
             <h1>Register Account</h1>
-            <p>If you already have an account with us, please login in the login page.</p>
+            <br><hr>
 
             <form enctype="multipart/form-data" class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <div class="form-group row">
@@ -199,6 +199,7 @@ mysqli_close($connection);
                     </div>
                 </div>
             </form>
+            <p>Already have an account?<a href="login.php"> Sign in </a></p>
         </div>
 
 <?php include 'footer.inc.php' ?>
