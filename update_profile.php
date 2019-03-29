@@ -9,6 +9,7 @@
 	}
 
 	$imageData = file_get_contents($_FILES['picture']['tmp_name']);
+	echo $_FILES['picture']['size'];
 
 	//email field cannot be empty. so check whether if it's empty. if empty email value submitted, should use the session email variable instead. 
 	$email = (!empty($_POST['email']) ? mysqli_real_escape_string($connection, $_POST['email']) : $_SESSION['email']);
@@ -26,11 +27,17 @@
 		$_SESSION['contact'] = $contact;
 		$_SESSION['gender'] = $gender;
 		$_SESSION['email'] = $email;
-		// Read image path, convert to base64 encoding
-		$encodedImage = base64_encode(file_get_contents($_FILES['picture']['tmp_name']));
-		// Format the image SRC:  data:{mime};base64,{data};
-		$src = 'data: '.mime_content_type($_FILES['picture']['tmp_name']).';base64,'.$encodedImage;
-		$_SESSION['profile_picture'] = '"' . $src . '"';
+		if ($_FILES['picture']['size'] == 0) {
+			$_SESSION['profile_picture'] = "img/user.png";
+		}
+		else{
+			// Read image path, convert to base64 encoding
+			$encodedImage = base64_encode(file_get_contents($_FILES['picture']['tmp_name']));
+			// Format the image SRC:  data:{mime};base64,{data};
+			$src = 'data: '.mime_content_type($_FILES['picture']['tmp_name']).';base64,'.$encodedImage;
+			$_SESSION['profile_picture'] = '"' . $src . '"';
+		}
+		
 		header("Location: profile.php");
 		// echo '<img src='$_SESSION['profile_picture']'>';
 	}

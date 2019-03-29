@@ -63,3 +63,7 @@ div.carousel-caption p{
   border-radius: 4px;  /* Rounded border */
   padding: 10px;
 }
+
+.card-img-top{
+  height: 150px;
+}

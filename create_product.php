@@ -16,7 +16,7 @@
   $nextDate = date('Y-m-d', strtotime($currDate . ' +1 day'));
   if($_SERVER["REQUEST_METHOD"] == "POST")
   {
-    require_once('C:\xampp\htdocs\phpProject\config.php');
+    require_once('config.php');
     $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
 
     if (mysqli_connect_errno() ){
