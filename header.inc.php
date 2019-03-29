@@ -47,6 +47,10 @@
               echo '<a class="dropdown-item" href="create_product.php">Sell an item</a>';
               echo '</div>';
               echo '</li>';
+
+                echo '<li class="nav-item">';
+                echo '<a class="nav-link" href="messageInbox.php?pid=0">Inbox</a>';
+                echo '</li>';
             }
         ?>
         <li <?=linkActive($ref1)?>>
