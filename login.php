@@ -1,6 +1,12 @@
 <?php 
-	session_start();
-	$username = $password = "";
+	
+         
+session_start();
+	$username = $password =$wrong= "";
+        
+        
+             
+          
 	require_once('config.php');
 	$connection = mysqli_connect(DBHOST, DBUSER, DBPASS,DBNAME);
 	if (mysqli_connect_errno() ){
@@ -8,6 +14,9 @@
 	}
 
 	if (isset($_POST['submit'])) {
+            
+
+            
 	    $username = mysqli_real_escape_string($connection, $_POST['username']);
 	    $password = mysqli_real_escape_string($connection, $_POST['password']);
 
@@ -41,11 +50,13 @@
 					header("Location: index.php");
 				}
 				else{
-					echo "you are not logged in";
+//					echo "you are not logged in";
+                                    $wrong = "The credentials that you've entered doesn't match any account. Sign up for an account.";
 				}
 			}
 			else{
-				echo "account dont exist";
+//				echo "account dont exist";
+                            $wrong = "The credentials that you've entered doesn't match any account. Sign up for an account.";
 			}
 	    }
 	    else{
@@ -67,12 +78,17 @@
 
 	<!-- Custom styles for this template -->
 	<link href="css/shop-homepage.css" rel="stylesheet">
+        <style>
+            .help-block{
+                color:red;
+            }
+            </style>
 </head>
 <body>
 	<?php include 'header.inc.php'; ?>
 	<br><br>
 	<div class="container">
-		<h1>Login to enjoy online shopping!</h1>
+		<h1>Welcome to Fast Trade! Please login.</h1>
 		<br>
 		<hr>
 		<br>
@@ -80,13 +96,14 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="username">Username:</label>
 				<div class="col-sm-10">
-				  <input type="text" class="form-control" name="username" value="<?php echo $username;?>">
+				  <input type="text" class="form-control" name="username">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="pwd">Password:</label>
 				<div class="col-sm-10"> 
 				  <input type="password" class="form-control" name="password">
+                                  <small  class="help-block"><?php echo $wrong ?></small>
 				</div>
 			</div>
 			<div class="form-group"> 
