@@ -33,7 +33,7 @@
       <!-- Page Content -->
       <div class="container-fluid">
         <div class="jumbotron"></div>  
-        <h1 class="bg-text display-3">Sell, buy, trade. Today!</h1>   
+        <h1 style="border-left: 0px; border-right:0px;"class="bg-text display-3">Sell, buy, trade. Today!</h1>   
       </div>
 
       <div class="container">

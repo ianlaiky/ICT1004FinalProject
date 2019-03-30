@@ -25,8 +25,8 @@
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-darker fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="index.php"><img src="img/fast-trade-logo.png"></a>
+  <div class="container-fluid">
+    <a style="margin-left: 100px;"class="navbar-brand" href="index.php"><img src="img/fast-trade-logo.png"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -38,23 +38,6 @@
                 Home
             </a>
         </li>
-
-        <!--For products-->
-        <?php
-            if (isset($_SESSION['username'])) {
-              echo '<li class="nav-item dropdown">';
-              echo '<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Items</a>';
-              echo '<div class="dropdown-menu">';
-              echo '<a class="dropdown-item" href="user_items.php">My items</a>';
-              echo '<a class="dropdown-item" href="create_product.php">Sell an item</a>';
-              echo '</div>';
-              echo '</li>';
-
-                echo '<li class="nav-item">';
-                echo '<a class="nav-link" href="messageInbox.php?pid=0">Inbox</a>';
-                echo '</li>';
-            }
-        ?>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Category
@@ -76,6 +59,22 @@
                  ?>
             </div>
         </li>
+        <!--For products-->
+        <?php
+            if (isset($_SESSION['username'])) {
+                echo '<li class="nav-item dropdown">';
+                echo '<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Items</a>';
+                echo '<div class="dropdown-menu">';
+                echo '<a class="dropdown-item" href="user_items.php">My items</a>';
+                echo '<a class="dropdown-item" href="create_product.php">Sell an item</a>';
+                echo '</div>';
+                echo '</li>';
+                echo '<li class="nav-item">';
+                echo '<a class="nav-link" href="messageInbox.php?pid=0">Inbox</a>';
+                echo '</li>';
+            }
+        ?>
+        
         <li <?=linkActive($ref1)?>>
             <a class="nav-link" href=<?php echo $ref1.".php" ?>>
                 <?php echo $ref1Name ?>

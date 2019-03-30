@@ -162,36 +162,36 @@ mysqli_close($connection);
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="name">Name:</label>
                     <div class="col-sm-5">
-                        <input placeholder="Enter name" type="text" class="form-control" name="name" value="<?php echo $name; ?>" required>
-                        <small  class="help-block"><?php echo $nameER ?></small>
+                        <input type="text" class="form-control" name="name" value="<?php echo $name; ?>">
+                        <small style="margin-bottom:0px" class="help-block"><?php echo $nameER ?></small>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="name">Username:</label>
                     <div class="col-sm-5">
-                        <input placeholder="Enter username" type="text" class="form-control" name="username" value="<?php echo $username; ?>" required>
-                        <small  class="help-block"><?php echo $usernameER ?></small>
+                        <input type="text" class="form-control" name="username" value="<?php echo $username; ?>">
+                        <small style="margin-bottom:0px" class="help-block"><?php echo $usernameER ?></small>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="email">Email:</label>
                     <div class="col-sm-5">
-                        <input placeholder="Enter email" aria-describedby="emailVerify" type="email" class="form-control" name="email" value="<?php echo $email; ?>" required>
-                        <small id="emailVerify" class="form-text text-muted">Please enter a valid email. A verification email will be sent to this address.</small>
+                        <input aria-describedby="emailVerify" type="email" class="form-control" name="email" value="<?php echo $email; ?>">
+                        <small style="margin-bottom:0px" id="emailVerify" class="form-text text-muted">Please enter a valid email. A verification email will be sent to this address.</small>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="password">Password:</label>
                     <div class="col-sm-5">
-                        <input placeholder="Enter password" aria-describedby="passwordVerify" type="password" class="form-control" name="password" required>
-                        <small id="passwordVerify" class="form-text text-muted">Password must be alphanumeric and be at least 8 characters long</small>
+                        <input aria-describedby="passwordVerify" type="password" class="form-control" name="password">
+                        <small style="margin-bottom:0px" id="passwordVerify" class="form-text text-muted">Password must be alphanumeric and be at least 8 characters long</small>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="confirm">Confirm password:</label>
                     <div class="col-sm-5">
-                        <input placeholder="Re-type the password" type="password" class="form-control" name="confirm" required>
-                        <small  class="help-block"><?php echo $confirmER ?></small>
+                        <input type="password" class="form-control" name="confirm">
+                        <small style="margin-bottom:0px" class="help-block"><?php echo $confirmER ?></small>
                     </div>
                 </div>
                 <div class="form-group row"> 
