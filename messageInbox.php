@@ -285,14 +285,13 @@ session_start();
                                     if ($result3 = mysqli_query($connection, $sql3)) {
                                         while ($row3 = mysqli_fetch_assoc($result3)) {
                                             $sellername = $row3['name'];
-                                        if(!empty($row3['profile_picture'])){
+                                            if (!empty($row3['profile_picture'])) {
 
 
-
-                                            $imggg = "data:image/png;base64,".base64_encode($row3['profile_picture']);
-                                        }else{
-                                            $imggg="img/user.png";
-                                        }
+                                                $imggg = "data:image/png;base64," . base64_encode($row3['profile_picture']);
+                                            } else {
+                                                $imggg = "img/user.png";
+                                            }
 
                                         }
                                     }
@@ -304,7 +303,6 @@ session_start();
                                     } else {
                                         $displayseller = "Seller: " . $sellername;
                                     }
-
 
 
                                     echo "<div onclick=\"gettest(" . $pidd . ")\" class=\"chat_list active_chat\">";
