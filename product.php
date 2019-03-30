@@ -93,20 +93,14 @@
                             echo '<div class="card">';
                             echo '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($row['picture']).'">';
                             echo '<hr>';
-                            //echo '<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>';
                             echo '<div class="product-details">';
                             echo '<p class="text-muted">'.$row['type'].'</p>';
                             echo '<h3 class="text-center product-title">'.$row['title'].'</h3>';
                             echo '<h4 class="text-center product-price">S$'.$row['price'].'</h4>';
                             echo '</div>';
-                            // echo '<div class="card-footer">';
-                            // echo '<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>';
-                            // echo '</div>';
                             echo '</div>';
                             echo '</a>';
                             echo '</div>';
-
-                            
                         }           
                     }
                   }

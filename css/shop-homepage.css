@@ -9,6 +9,32 @@ body {
   background-color: whitesmoke;
 }
 
+/*Jumbotron image credit: https://www.pexels.com/photo/three-women-and-two-men-leaning-on-white-wall-1391380/ */
+.jumbotron{
+    background-image: url('../img/jumbotron.jpg');
+    filter: blur(3px);
+    -webkit-filter: blur(3px);
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 15rem;
+}
+
+.bg-text{
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+  color: white;
+  /*font-weight: bold;*/
+  border: 3px solid #f1f1f1;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+}
+
 .caroImage {
   height: 350px;
   width: 900px;
@@ -151,8 +177,4 @@ h2 span {
 
 .container-fluid{
   padding: 0;
-}
-
-.jumbotron{
-  padding: 10rem;
 }
