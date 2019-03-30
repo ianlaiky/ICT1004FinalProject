@@ -62,10 +62,19 @@
 					<li class="list-group-item">Item listing expiring in: <span id="expiry-countdown"></span> </li>
                     <li class="list-group-item">Age of item: <?php echo $age ?></li>
 					<li class="list-group-item">Condition: <?php echo $condition ?></li>
-					<li class="list-group-item">Trading place: <?php echo $trading_place ?></li>
-                    
+					<li class="list-group-item">Trading place: <?php echo $trading_place ?></li>               
 				</ul>
-				<a href='messageInbox.php?pid=<?php echo $productId?>&redirect=true' style="position: absolute; right: 30; bottom:0; " type="button" class="btn btn-dark btn-lg">Chat to buy now!</a>
+                
+                <?php if (isset($_SESSION['user_id'])) 
+                {
+                    echo '<a href="messageInbox.php?pid=<?php echo $productId?>&redirect=true" style="position: absolute; right: 30; bottom:0; " type="button" class="btn btn-dark btn-lg">Chat to buy now!</a>';
+                } else{
+                    echo '<a href="login.php" style="position: absolute; right: 30; bottom:0;" type="button" class="btn btn-dark btn-lg">Interested? Login to buy now.</a>';
+                }
+
+                ?>
+                
+				
     		</div>
     	</div>
     </div>
