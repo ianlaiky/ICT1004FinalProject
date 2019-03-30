@@ -1,5 +1,4 @@
 <?php
-
     $ref1 = $ref2 = $ref1Name = $ref2Name = "";
     function linkActive($requestUri)
     {
@@ -7,7 +6,6 @@
         if ($current_file_name == $requestUri)
             echo 'class="active"';
     }
-
     if (!isset($_SESSION['username'])) {
         $ref1 = "register";
         $ref1Name = "Register";
@@ -20,7 +18,6 @@
         $ref2 = "logout";
         $ref2Name = "Logout";
     }
-
 ?>
 
 <!-- Navigation -->
@@ -46,7 +43,6 @@
                 <?php 
                     require_once('config.php');
                     $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
-
                     if (mysqli_connect_errno() ){
                         die( mysqli_connect_error() );
                     }

@@ -125,7 +125,7 @@
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="css/shop-homepage.css" rel="stylesheet">
-
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
 <body>
     <header>
@@ -159,9 +159,9 @@
                 <span class="error"> <?php echo $descriptionErr;?></span>
               </div>
             </div>
-            <div class="form-group row">
-              <label for="picture">Picture</label>
-              <input type="file" class="form-control-file" name="picture" id="picture" value="">
+            <div class="form-group row">                
+                <label for="picture" class="col-sm-2">Picture</label>
+                <input type="file" class="col-sm-10 form-control-file" name="picture" id="picture" value="">
             </div>
             <div class="form-group row">
               <label for="condition" class="col-sm-2 col-form-label">Condition</label>

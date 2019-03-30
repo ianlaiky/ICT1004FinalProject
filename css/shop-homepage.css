@@ -178,3 +178,6 @@ h2 span {
 .container-fluid{
   padding: 0;
 }
+.error{
+    color:red;
+}
