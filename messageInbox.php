@@ -285,8 +285,14 @@ session_start();
                                     if ($result3 = mysqli_query($connection, $sql3)) {
                                         while ($row3 = mysqli_fetch_assoc($result3)) {
 
+                                        if(!empty($row3['profile_picture'])){
                                             $sellername = $row3['name'];
-                                            $imggg = $row3['profile_picture'];
+
+                                            $imggg = "data:image/png;base64,".base64_encode($row3['profile_picture']);
+                                        }else{
+                                            $imggg="img/user.png";
+                                        }
+
                                         }
                                     }
 
@@ -297,7 +303,7 @@ session_start();
                                     } else {
                                         $displayseller = "Seller: " . $sellername;
                                     }
-                                    $imgnew = base64_encode($imggg);
+
 
 
                                     echo "<div onclick=\"gettest(" . $pidd . ")\" class=\"chat_list active_chat\">";
@@ -305,7 +311,7 @@ session_start();
                                     echo "<div class=\"chat_ib row\">";
 //                                    echo "<img style=\"float: right;border-radius: 50%;\" height=\"60px\" width=\"60px\" src=\"data:image/png;base64,/>";
                                     echo "<div class='col-md-4 '>";
-                                    echo "<img class='rounded-circle' height=\"60px\" width=\"60px\" src=\"data:image/png;base64, $imgnew\">";
+                                    echo "<img class='rounded-circle' height=\"60px\" width=\"60px\" src=\"$imggg\">";
                                     echo "</div>";
                                     echo "<div class='col-md-8'>";
                                     echo "<h5>Product name: " . $ptitle . "</h5>";
