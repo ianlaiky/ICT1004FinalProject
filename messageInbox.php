@@ -284,9 +284,9 @@ session_start();
                                     $imggg = null;
                                     if ($result3 = mysqli_query($connection, $sql3)) {
                                         while ($row3 = mysqli_fetch_assoc($result3)) {
-
-                                        if(!empty($row3['profile_picture'])){
                                             $sellername = $row3['name'];
+                                        if(!empty($row3['profile_picture'])){
+
 
                                             $imggg = "data:image/png;base64,".base64_encode($row3['profile_picture']);
                                         }else{
