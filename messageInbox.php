@@ -281,7 +281,7 @@ session_start();
 
                                     $sql3 = "select * from users where user_id='" . $puserid . "'";
 
-                                    $imggg=null;
+                                    $imggg = null;
                                     if ($result3 = mysqli_query($connection, $sql3)) {
                                         while ($row3 = mysqli_fetch_assoc($result3)) {
 
@@ -297,7 +297,8 @@ session_start();
                                     } else {
                                         $displayseller = "Seller: " . $sellername;
                                     }
-$imgnew = base64_encode($imggg);
+                                    $imgnew = base64_encode($imggg);
+
 
                                     echo "<div onclick=\"gettest(" . $pidd . ")\" class=\"chat_list active_chat\">";
                                     echo "<div class=\"chat_people\">";
@@ -319,7 +320,7 @@ $imgnew = base64_encode($imggg);
                     }
 
                     ?>
-<!--                    <img class='col-md-4' style="border-radius: 50%;" height="60px" width="60px" src="data:image/png;base64, base64_encode($imggg)">-->
+                    <!--                    <img class='col-md-4' style="border-radius: 50%;" height="60px" width="60px" src="data:image/png;base64, base64_encode($imggg)">-->
 
 
                     <!--                    <button onclick="gettest()">sdfds</button>-->
