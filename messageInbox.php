@@ -204,11 +204,17 @@ session_start();
                                         $sqlgetseller = "select * from users where user_id='" . $rowexistingChat['userid'] . "'";
                                         $getseller = "";
                                         $getsellerid = "";
+                                        $imggger=null;
                                         if ($resultgetseller = mysqli_query($connection, $sqlgetseller)) {
                                             while ($rowgetseller = mysqli_fetch_assoc($resultgetseller)) {
                                                 $getseller = $rowgetseller['name'];
                                                 $getsellerid = $rowgetseller['user_id'];
 
+                                                if (!empty($rowgetseller['profile_picture'])) {
+                                                $imggger = "data:image/png;base64," . base64_encode($rowgetseller['profile_picture']);
+                                                } else {
+                                                    $imggger = "img/user.png";
+                                                }
 
                                             }
                                         }
@@ -217,11 +223,14 @@ session_start();
 
                                             echo "<div onclick=\"gettest(" . $_GET['pid'] . ")\" class=\"chat_list active_chat\">";
                                             echo "<div class=\"chat_people\">";
-                                            echo "<div class=\"chat_ib\">";
-
-
+                                            echo "<div class=\"chat_ib row\">";
+                                            echo "<div class='col-md-4 '>";
+                                            echo "<img class='rounded-circle' height=\"60px\" width=\"60px\" src=\"$imggger\">";
+                                            echo "</div>";
+                                            echo "<div class='col-md-8'>";
                                             echo "<h5>Product name: " . $rowexistingChat['title'] . "</h5>";
                                             echo "<h6>Seller: " . $getseller . "</h6>";
+                                            echo "</div>";
                                             echo " </div> </div> </div>";
 
                                         }
