@@ -288,6 +288,7 @@ session_start();
                                         if(!empty($row3['profile_picture'])){
 
 
+
                                             $imggg = "data:image/png;base64,".base64_encode($row3['profile_picture']);
                                         }else{
                                             $imggg="img/user.png";
