@@ -35,15 +35,17 @@
                     while ($row = mysqli_fetch_assoc($result)) {
                     	echo '<div class="col-md-3">';
                         echo '<a href="product.php?product_id='.$row['product_id'].'&user_id='.$row['userid'].'">';
-                        echo '<div class="card h-50">';
+                        echo '<div class="card">';
                         echo '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($row['picture']).'">';
-                        echo '<div class="card-body">';
-                        echo '<div class="card-text">'.$row['title'].'</div>';
-                        echo '<div class="card-text">Price: '.$row['price'].'</div>';
+                        echo '<hr>';
+                        echo '<div class="product-details">';
+                        echo '<p class="text-muted">'.$row['type'].'</p>';
+                        echo '<h3 class="text-center product-title">'.$row['title'].'</h3>';
+                        echo '<h4 class="text-center product-price">S$'.$row['price'].'</h4>';
                         echo '</div>';
                         echo '</div>';
                         echo '</a>';
-                        echo '</div>';          
+                        echo '</div>';         
                     }
                   }
             ?>
