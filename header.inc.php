@@ -24,17 +24,17 @@
 ?>
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-darker fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="index.php">Fast Trade</a>
+    <a class="navbar-brand" href="index.php"><img src="img/fast-trade-logo.png"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        
         <li <?=linkActive("index")?>>
             <a class="nav-link" href="index.php">
+                <i class="fa fa-home fa-fw" aria-hidden="true"></i>
                 Home
             </a>
         </li>
@@ -55,6 +55,27 @@
                 echo '</li>';
             }
         ?>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Category
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <?php 
+                    require_once('config.php');
+                    $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
+
+                    if (mysqli_connect_errno() ){
+                        die( mysqli_connect_error() );
+                    }
+                    $sql = "SELECT * FROM category ORDER BY category.cat_id ASC";
+                    if ($result = mysqli_query($connection, $sql)){
+                        while($row = mysqli_fetch_assoc($result)) {
+                            echo '<a class="dropdown-item" href="index.php?type='.$row['type'].'">'.$row['type'].'</a>';
+                        }
+                    }
+                 ?>
+            </div>
+        </li>
         <li <?=linkActive($ref1)?>>
             <a class="nav-link" href=<?php echo $ref1.".php" ?>>
                 <?php echo $ref1Name ?>

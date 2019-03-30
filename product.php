@@ -55,7 +55,7 @@
                 <p><br>Sold by: <?php echo $name ?></p>
     		</div>
     		<div class="col-md-5">
-    			<ul class="list-group">
+    			<ul class="list-group list-group-flush">
 					<h1><?php echo $title ?></h1>
 					<br>
 					<li class="list-group-item">Price: S$<?php echo $price ?></li>
@@ -90,12 +90,18 @@
                         if ($row['type'] == $relevantItems) {
                             echo '<div class="col-md-3">';
                             echo '<a href="product.php?product_id='.$row['product_id'].'&user_id='.$row['userid'].'">';
-                            echo '<div class="card h-50">';
+                            echo '<div class="card">';
                             echo '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($row['picture']).'">';
-                            echo '<div class="card-body">';
-                            echo '<div class="card-text">'.$row['title'].'</div>';
-                            echo '<div class="card-text">Price: '.$row['price'].'</div>';
+                            echo '<hr>';
+                            //echo '<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>';
+                            echo '<div class="product-details">';
+                            echo '<p class="text-muted">'.$row['type'].'</p>';
+                            echo '<h3 class="text-center product-title">'.$row['title'].'</h3>';
+                            echo '<h4 class="text-center product-price">S$'.$row['price'].'</h4>';
                             echo '</div>';
+                            // echo '<div class="card-footer">';
+                            // echo '<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>';
+                            // echo '</div>';
                             echo '</div>';
                             echo '</a>';
                             echo '</div>';

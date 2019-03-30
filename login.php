@@ -70,6 +70,7 @@ session_start();
 
 	<!-- Custom styles for this template -->
 	<link href="css/shop-homepage.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         .help-block{
             color:red;
@@ -86,13 +87,13 @@ session_start();
 		<form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="username">Username:</label>
-				<div class="col-sm-10">
+				<div class="col-sm-5">
 				  <input type="text" class="form-control" name="username">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="pwd">Password:</label>
-				<div class="col-sm-10"> 
+				<div class="col-sm-5"> 
 				  <input type="password" class="form-control" name="password">
                                   <small  class="help-block"><?php echo $wrong ?></small>
 				</div>

@@ -111,9 +111,7 @@
 				<button type="submit" class="btn btn-info float-right" name="update">Update profile</button>
 				</div>
 			</div>
-			<br>
-			<br>
-
+			
 		</form>
 	</div>
 	<?php include 'footer.inc.php' ?>
