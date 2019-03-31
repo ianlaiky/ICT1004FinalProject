@@ -4,11 +4,12 @@
     if (mysqli_connect_errno() ){
         die( mysqli_connect_error() );
     }
+    //statement to update all products that have already expired or sold.
     if($_SERVER["REQUEST_METHOD"] == "POST")
     {
         $pid = $_POST['productid'];
-        $delete_stmt = mysqli_prepare($connection, "DELETE FROM product WHERE product.product_id = ?");
-        $delete_stmt->bind_param('s', $pid);
-        $delete_stmt->execute();
+        $sql = "UPDATE product SET `is_active` = 'no' WHERE product.product_id IN (".$pid.")";
+        $update_stmt = mysqli_prepare($connection, $sql);
+        $update_stmt->execute();
     }
 ?>

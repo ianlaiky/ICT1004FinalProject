@@ -65,8 +65,10 @@ if(!isset($_SESSION['user_id']))
                             echo '<br/>';
                             echo '<h4>Description:</h4><p>'.$row['description'].'</p>';
                             echo '</div>';
-                            echo '<div class="align-self-center mr-3 btn-group-vertical">';
-                            echo '<button type="button" class="btn btn-primary">Edit</button>';
+                            echo '<div class="align-self-center mr-3 btn-group">';
+                            echo '<button type="button" class="btn btn-primary" onclick="editItem('.$row['product_id'].')">Edit</button>';
+                            echo '</div>';
+                            echo '<div class="align-self-center mr-3 btn-group">';
                             echo '<button type="button" class="btn btn-danger" onclick="deleteItem('.$row['product_id'].','.$cnt.')">Delete</button>';
                             echo '</div>';
                             echo '</div>';
@@ -97,6 +99,11 @@ if(!isset($_SESSION['user_id']))
                     $('.'+element).hide();
                 }
             });
+        }
+        function editItem(id)
+        {
+            // Switch url to edit_product.php with product's ID.
+            window.location.href = "edit_product.php?productid=" + id;
         }
     </script>
 

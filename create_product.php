@@ -52,9 +52,10 @@
       $trading_placeBool = true;
       $trading_place = mysqli_real_escape_string($connection, $_POST['trading_place']);
     }
-    if(empty(test_input($_POST['expiry'])))
+    if(strtotime($_POST['expiry']) == strtotime('0000-00-00'))
     {
-      $expiryErr = "Please enter an expiry date for your item's listing.";
+      $expiry = date('Y-m-d', strtotime($currDate . ' +5 day'));
+      echo $expiry;
     }
     else
     {
@@ -62,9 +63,9 @@
       $expiry = mysqli_real_escape_string($connection, $_POST['expiry']);
     }
     //For optional fields
-    if(empty($_FILES['picture']))
+    if(filesize($_FILES['picture']['tmp_name']) == 0)
     {
-      $picture = NULL;
+      $bin_data = file_get_contents('img/placeholder.jpg');
     }
     else
     {
@@ -89,12 +90,12 @@
 
       if($insert_stmt = mysqli_prepare($connection, "INSERT INTO product (`title`, `description`, `picture`, `condition`, `age`, `price`, `trading_place`, `type`, `userid`, `is_active`, `expiry`) VALUES (?,?,?,?,?,?,?,?,?,?,?)"))
       {
-         $insert_stmt->bind_param('ssbsssssiss', $title, $description, $null, $condition, $age, $price, $trading_place, $type, $userid, $active, $expiry);
-         $insert_stmt->send_long_data(2, $bin_data);
-         $insert_stmt->execute();
-          ob_start();
-          header('Location: index.php');
-          ob_end_flush();
+        $insert_stmt->bind_param('ssbsssssiss', $title, $description, $null, $condition, $age, $price, $trading_place, $type, $userid, $active, $expiry);
+        $insert_stmt->send_long_data(2, $bin_data);
+        $insert_stmt->execute();
+        ob_start();
+        header('Location: index.php');
+        ob_end_flush();
        die();
       }
       else
@@ -209,7 +210,7 @@
               <label for="expiry" class="col-sm-2 col-form-label">Expiry date</label>
               <div class="col-sm-10">
                 <input type="date" class="form-control" name="expiry" min="<?php echo $nextDate?>">
-                <span class="error"></span>
+                <small class="form-text text-muted">You may wish to list the length of your item listing. By default, it will be 5 days.</small>
               </div>
             </div>
             <div class="form-group row">
