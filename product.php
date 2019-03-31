@@ -42,27 +42,6 @@
 	<!-- Custom styles for this template -->
 	<link href="css/shop-homepage.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-        <style>
-            .grow { transition: all .2s ease-in-out; }
-.grow:hover { transform: scale(1.5); }
-span{
-    color:chocolate;
-    font-weight: bold;
-   width:6.5%;
-   margin-right: 8px;
-}
-.col-md-5{
-    background-color: oldlace;
-    font-size: larger;
-}
-#expiry-countdown{
-    color:red;
-}
-.pd{
-    margin: 5px 2px;
-}
-
-            </style>
 </head>
 <body>
     <?php include 'header.inc.php'; ?>
@@ -71,13 +50,12 @@ span{
     <div class="container">
     	<div class="row">
     		<div class="col-md-7">
-                    <div style="overflow:hidden;"><img style="border: 1px solid #ddd; border-radius: 4px; padding: 10px" class="grow" src=<?php echo $picture ?>></div>
-    			
+    			<img style="border: 1px solid #ddd; border-radius: 4px; padding: 10px" src=<?php echo $picture ?>>
 
-<!--                <p><br>Sold by: <?php echo $name ?></p>-->
+                <p><br>Sold by: <?php echo $name ?></p>
     		</div>
     		<div class="col-md-5">
-<!--    			<ul class="list-group list-group-flush">
+    			<ul class="list-group list-group-flush">
 					<h1><?php echo $title ?></h1>
 					<br>
 					<li class="list-group-item">Price: S$<?php echo $price ?></li>
@@ -85,22 +63,13 @@ span{
                     <li class="list-group-item">Age of item: <?php echo $age ?></li>
 					<li class="list-group-item">Condition: <?php echo $condition ?></li>
 					<li class="list-group-item">Trading place: <?php echo $trading_place ?></li>               
-				</ul>-->
-                <h1><?php echo $title ?></h1>
-                <div class="pd"><span class="fas fa-user-tag"></span>Sold by: <?php echo $name ?></div>
-                <div class="pd"><span class="fas fa-hourglass-half"></span>Buy before it's gone: <span id="expiry-countdown"></span></div>
-                <div class="pd"><span class="fas fa-hand-holding-usd"></span>Price: S$<?php echo $price ?></div>
-                <div class="pd"><span class="fas fa-tag"></span>Category: <a href="#"><?php echo $relevantItems ?></a></div>
-                <div class="pd"><span class="fas fa-clock"></span>Age of item: <?php echo $age ?></div>
-                <div class="pd"><span class="fas fa-tools"></span>Condition: <?php echo $condition ?></div>
-                <div class="pd"><span class="fas fa-map-marker-alt"></span>Trading venue: <?php echo $trading_place ?></div>
+				</ul>
                 
-                <div>
                 <?php if (isset($_SESSION['user_id'])) 
                 {
-                    echo '<a href="messageInbox.php?pid='.$productId.'&redirect=true" style="position: absolute; left: 20%; bottom:10%; " type="button" class="btn btn-primary btn-lg"><span class="fas fa-comments-dollar"></span> Chat to buy now!</a>';
+                    echo '<a href="messageInbox.php?pid='.$productId.'&redirect=true" style="position: absolute; right: 30; bottom:0; " type="button" class="btn btn-dark btn-lg">Chat to buy now!</a>';
                 } else{
-                    echo '<a href="login.php" style="position: absolute; right: 30; bottom:0;" type="button" class="btn btn-dark btn-lg"><span class="fas fa-sign-in-alt"></span>  Interested? Login to buy now!</a>';
+                    echo '<a href="login.php" style="position: absolute; right: 30; bottom:0;" type="button" class="btn btn-dark btn-lg">Interested? Login to buy now.</a>';
                 }
 
                 ?>
@@ -111,8 +80,8 @@ span{
     </div>
     
     <div class="container">
-        
-    	<h1><span class="fas fa-info-circle"></span>Product Description</h1>
+    	<hr>
+    	<h1>Product Description</h1>
     	<br>
     	<p><?php echo $description ?></p>
         <hr>
