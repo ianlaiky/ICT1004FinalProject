@@ -158,12 +158,14 @@ a {
   margin-bottom: 10px;
 }
 
-.display-4 {
+.text-line {
    width: 100%; 
    text-align: center; 
    border-bottom: 1px solid #000; 
    line-height: 0.1em;
    margin: 80px 0 80px; 
+   font-size: 3.5rem;
+   font-weight: 300;
 } 
 
 h2 span { 
