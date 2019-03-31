@@ -49,7 +49,7 @@
                   $sql = "SELECT * FROM product WHERE product.is_active = 'yes'";
                   if (isset($_GET['type'])) {
                       $type = $_GET['type'];
-                      echo '<h2 class="display-4"><span>'.$type.'</span></h2>';
+                      echo '<h2 class="text-line"><span>'.$type.'</span></h2>';
                       if ($result = mysqli_query($connection, $sql)) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             if ($row['type'] == $type) {
@@ -83,7 +83,7 @@
                   }
                   else
                   {
-                    echo '<h2 class="display-4"><span>All products</span></h2>';
+                    echo '<h2 class="text-line"><span>All products</span></h2>';
                     if ($result = mysqli_query($connection, $sql)) {
 
                       while ($row = mysqli_fetch_assoc($result)) {

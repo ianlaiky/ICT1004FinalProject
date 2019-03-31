@@ -7,6 +7,14 @@
  * Time: 3:19 PM
  */
 session_start();
+
+if(!isset($_GET['pid'])){
+    $dir ="/messageInbox.php?pid=0";
+    header("Location: $dir");
+}
+
+
+
 ?>
 <head>
     <meta charset="utf-8">
@@ -42,7 +50,7 @@ session_start();
         function ajaxcall() {
 
 
-            $.get("<?php echo dirname($_SERVER['PHP_SELF']);?>/getMessages.php?productid=" +<?php echo $_GET['pid']?>, function (data) {
+            $.get("/getMessages.php?productid=" +<?php echo $_GET['pid']?>, function (data) {
 
                 console.log("Load was performed.");
                 console.log(data.length);
@@ -170,6 +178,8 @@ session_start();
                 <div class="inbox_chat">
 
                     <?php
+
+
 
                     require_once('config.php');
                     $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
@@ -313,8 +323,17 @@ session_start();
                                         $displayseller = "Seller: " . $sellername;
                                     }
 
+                                    if($pidd==$_GET['pid']){
+                                        echo "<div onclick=\"gettest(" . $pidd . ")\" class=\"chat_list active_chat\">";
+                                    }else{
+                                        echo "<div onclick=\"gettest(" . $pidd . ")\" class=\"chat_list\">";
 
-                                    echo "<div onclick=\"gettest(" . $pidd . ")\" class=\"chat_list active_chat\">";
+                                    }
+
+
+
+
+
                                     echo "<div class=\"chat_people\">";
                                     echo "<div class=\"chat_ib row\">";
 //                                    echo "<img style=\"float: right;border-radius: 50%;\" height=\"60px\" width=\"60px\" src=\"data:image/png;base64,/>";
