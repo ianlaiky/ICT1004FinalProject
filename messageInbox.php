@@ -313,8 +313,17 @@ session_start();
                                         $displayseller = "Seller: " . $sellername;
                                     }
 
+                                    if($pidd==$_GET['pid']){
+                                        echo "<div onclick=\"gettest(" . $pidd . ")\" class=\"chat_list active_chat\">";
+                                    }else{
+                                        echo "<div onclick=\"gettest(" . $pidd . ")\" class=\"chat_list\">";
 
-                                    echo "<div onclick=\"gettest(" . $pidd . ")\" class=\"chat_list active_chat\">";
+                                    }
+
+
+
+
+
                                     echo "<div class=\"chat_people\">";
                                     echo "<div class=\"chat_ib row\">";
 //                                    echo "<img style=\"float: right;border-radius: 50%;\" height=\"60px\" width=\"60px\" src=\"data:image/png;base64,/>";
