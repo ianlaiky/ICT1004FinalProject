@@ -60,7 +60,6 @@
     {
       $expiryBool = true;
       $expiry = mysqli_real_escape_string($connection, $_POST['expiry']);
-      echo $expiry;
     }
     //For optional fields
     if(empty($_FILES['picture']))
@@ -93,9 +92,9 @@
          $insert_stmt->bind_param('ssbsssssiss', $title, $description, $null, $condition, $age, $price, $trading_place, $type, $userid, $active, $expiry);
          $insert_stmt->send_long_data(2, $bin_data);
          $insert_stmt->execute();
-        ob_start();
-        header('Location: index.php');
-        ob_end_flush();
+          ob_start();
+          header('Location: index.php');
+          ob_end_flush();
        die();
       }
       else
@@ -125,7 +124,7 @@
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="css/shop-homepage.css" rel="stylesheet">
-
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
 <body>
     <header>
@@ -135,13 +134,21 @@
     </header>
     <article>
         <div class="container">
+          <br>
           <h1>List an item for sale</h1>
           <form enctype="multipart/form-data" class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
             <div class="form-group row">
               <label for="type" class="col-sm-2 col-form-label">Type</label>
               <div class="col-sm-10">
                 <select class="form-control" name="type" placeholder="Select your item type.">
-                <option value="Home Appliance">Home Appliance</option>
+                <?php 
+                      $sql = "SELECT * FROM category ORDER BY category.cat_id ASC";
+                      if ($result = mysqli_query($connection, $sql)){
+                          while($row = mysqli_fetch_assoc($result)) {
+                            echo '<option value="'.$row['type'].'">'.$row['type'].'</option>';
+                          }
+                      }
+                 ?>
                 </select>
               </div>
             </div>
@@ -159,9 +166,9 @@
                 <span class="error"> <?php echo $descriptionErr;?></span>
               </div>
             </div>
-            <div class="form-group row">
-              <label for="picture">Picture</label>
-              <input type="file" class="form-control-file" name="picture" id="picture" value="">
+            <div class="form-group row">                
+                <label for="picture" class="col-sm-2">Picture</label>
+                <input type="file" class="col-sm-10 form-control-file" name="picture" id="picture" value="">
             </div>
             <div class="form-group row">
               <label for="condition" class="col-sm-2 col-form-label">Condition</label>

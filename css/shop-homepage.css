@@ -5,7 +5,34 @@
  */
 body {
   padding-top: 56px;
+  padding-bottom: 50px;
   background-color: whitesmoke;
+}
+
+/*Jumbotron image credit: https://www.pexels.com/photo/three-women-and-two-men-leaning-on-white-wall-1391380/ */
+.jumbotron{
+    background-image: url('../img/jumbotron.jpg');
+    filter: blur(3px);
+    -webkit-filter: blur(3px);
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 15rem;
+}
+
+.bg-text{
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+  color: white;
+  /*font-weight: bold;*/
+  border: 1px solid #f1f1f1;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 100%;
+  padding: 20px;
+  text-align: center;
 }
 
 .caroImage {
@@ -58,8 +85,99 @@ div.carousel-caption p{
   opacity: 1;
 }
 
-.product-img{
-  border: 1px solid #ddd; /* Gray border */
-  border-radius: 4px;  /* Rounded border */
+/*.product-img{
+  border: 1px solid #ddd; 
+  border-radius: 4px; 
   padding: 10px;
+}*/
+
+.card-img-top{
+  /*padding: 10px;*/
+  height: 10.5em;
+  margin: 15px auto 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+a:link{
+  text-decoration: none;
+}
+
+/*.card-body{
+  position: absolute;
+  bottom: 0;
+}
+
+.h-100{
+  min-height: 350px;
+}*/
+
+a {
+  -webkit-transition: .25s all;
+  transition: .25s all;
+}
+
+.card {
+  overflow: hidden;
+  /*box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);*/
+  -webkit-transition: .25s box-shadow;
+  transition: .25s box-shadow;
+}
+
+.card:focus,
+.card:hover {
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+.product-details{
+  padding: 25px 0em 25px;
+  text-align: center;
+}
+
+.card>hr {
+  margin: 0 20px 0 20px;
+
+}
+
+.product-title {
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #2B2D42;
+  margin: 0 0 10px
+}
+
+.product-price {
+  color:#D10024;
+  font-size:18px;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+
+.text-muted{
+  margin-bottom: 10px;
+}
+
+.display-4 {
+   width: 100%; 
+   text-align: center; 
+   border-bottom: 1px solid #000; 
+   line-height: 0.1em;
+   margin: 80px 0 80px; 
+} 
+
+h2 span { 
+    background: whitesmoke; 
+    padding:10px 10px; 
+}
+
+.bg-darker{
+  background-color: black;
+}
+
+.container-fluid{
+  padding: 0;
+}
+.error{
+    color:red;
 }

@@ -68,7 +68,7 @@
 							}
 							else{
 								echo '<div style="margin-top:0.5em" class="custom-control custom-radio custom-control-inline">';
-								echo '<input type="radio" id="radio1" name= "gender" class="custom-control-input" value="Male" checked="checked">';
+								echo '<input type="radio" id="radio1" name= "gender" class="custom-control-input" value="Male">';
 								echo '<label class="custom-control-label" name="gender" for="radio1">Male</label>';
 								echo '</div>';
 								echo '<div style="margin-top:0.5em" class="custom-control custom-radio custom-control-inline">';
@@ -111,9 +111,7 @@
 				<button type="submit" class="btn btn-info float-right" name="update">Update profile</button>
 				</div>
 			</div>
-			<br>
-			<br>
-
+			
 		</form>
 	</div>
 	<?php include 'footer.inc.php' ?>

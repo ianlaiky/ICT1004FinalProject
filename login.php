@@ -1,6 +1,8 @@
 <?php 
-	session_start();
-	$username = $password = "";
+	
+         
+session_start();
+	$username = $password =$wrong= "";
 	require_once('config.php');
 	$connection = mysqli_connect(DBHOST, DBUSER, DBPASS,DBNAME);
 	if (mysqli_connect_errno() ){
@@ -35,17 +37,15 @@
 					}
 					else{
 						$_SESSION['profile_picture'] = "img/user.png";
-					}
-					// $_SESSION['profile_picture'] = base64_encode($row['profile_picture']);
-					
+					}					
 					header("Location: index.php");
 				}
 				else{
-					echo "you are not logged in";
+                    $wrong = "The credentials that you've entered doesn't match any account. Sign up for an account.";
 				}
 			}
 			else{
-				echo "account dont exist";
+                $wrong = "The credentials that you've entered doesn't match any account. Sign up for an account.";
 			}
 	    }
 	    else{
@@ -67,25 +67,30 @@
 
 	<!-- Custom styles for this template -->
 	<link href="css/shop-homepage.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .help-block{
+            color:red;
+        }
+    </style>
 </head>
 <body>
 	<?php include 'header.inc.php'; ?>
 	<br><br>
 	<div class="container">
-		<h1>Login to enjoy online shopping!</h1>
-		<br>
-		<hr>
-		<br>
+		<h1>Login to start shopping!</h1>
+
+		<br><hr>
 		<form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="username">Username:</label>
-				<div class="col-sm-10">
-				  <input type="text" class="form-control" name="username" value="<?php echo $username;?>">
+				<div class="col-sm-5">
+				  <input type="text" class="form-control" name="username">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="pwd">Password:</label>
-				<div class="col-sm-10"> 
+				<div class="col-sm-5"> 
 				  <input type="password" class="form-control" name="password">
 				</div>
 			</div>
@@ -94,7 +99,9 @@
 				<button type="submit" name="submit" class="btn btn-info">Login</button>
 				</div>
 			</div>
+
 		</form>
+		<p>Don't have an account?<a href="register.php"> Sign up now! </a></p>	
 	</div>
 	<?php include 'footer.inc.php' ?>
 	  <!-- Bootstrap core JavaScript -->

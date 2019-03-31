@@ -24,6 +24,11 @@ session_start();
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
     <script>
+        // do not comment this
+        function gettest(id) {
+
+            location.href = location.origin + location.pathname + '?pid=' + id;
+        }
 
 
         function callback() {
@@ -44,16 +49,14 @@ session_start();
                 console.log(data);
                 console.log(document.getElementById("currentCount").textContent);
 
-                if(document.getElementById("sendingto").textContent==""){
+                if (document.getElementById("sendingto").textContent == "") {
                     document.getElementById("sendingto").textContent = data[data.length - 2];
 
                 }
-                if(document.getElementById("sendpid").textContent==""){
+                if (document.getElementById("sendpid").textContent == "") {
                     document.getElementById("sendpid").textContent = data[data.length - 1];
 
                 }
-
-
 
 
                 // keep current text count; if current count is same as server, dont update
@@ -118,11 +121,6 @@ session_start();
 
         }
 
-        // do not comment this
-        function gettest(id) {
-
-            location.href = location.origin + location.pathname + '?pid=' + id;
-        }
 
     </script>
 
@@ -159,7 +157,7 @@ session_start();
 <div id="sendpid"></div>
 <div class="currentCount" id="currentCount">0</div>
 <div class="container">
-    
+
     <div class="messaging">
         <div class="inbox_msg">
             <div class="inbox_people">
@@ -206,11 +204,17 @@ session_start();
                                         $sqlgetseller = "select * from users where user_id='" . $rowexistingChat['userid'] . "'";
                                         $getseller = "";
                                         $getsellerid = "";
+                                        $imggger=null;
                                         if ($resultgetseller = mysqli_query($connection, $sqlgetseller)) {
                                             while ($rowgetseller = mysqli_fetch_assoc($resultgetseller)) {
                                                 $getseller = $rowgetseller['name'];
                                                 $getsellerid = $rowgetseller['user_id'];
 
+                                                if (!empty($rowgetseller['profile_picture'])) {
+                                                $imggger = "data:image/png;base64," . base64_encode($rowgetseller['profile_picture']);
+                                                } else {
+                                                    $imggger = "img/user.png";
+                                                }
 
                                             }
                                         }
@@ -219,9 +223,14 @@ session_start();
 
                                             echo "<div onclick=\"gettest(" . $_GET['pid'] . ")\" class=\"chat_list active_chat\">";
                                             echo "<div class=\"chat_people\">";
-                                            echo "<div class=\"chat_ib\">";
+                                            echo "<div class=\"chat_ib row\">";
+                                            echo "<div class='col-md-4 '>";
+                                            echo "<img class='rounded-circle' height=\"60px\" width=\"60px\" src=\"$imggger\">";
+                                            echo "</div>";
+                                            echo "<div class='col-md-8'>";
                                             echo "<h5>Product name: " . $rowexistingChat['title'] . "</h5>";
                                             echo "<h6>Seller: " . $getseller . "</h6>";
+                                            echo "</div>";
                                             echo " </div> </div> </div>";
 
                                         }
@@ -231,8 +240,7 @@ session_start();
 
                                         <script>
 
-                                                document.getElementById("sendingto").textContent="<?php echo $getsellerid?>";
-
+                                            document.getElementById("sendingto").textContent = "<?php echo $getsellerid?>";
 
 
                                         </script>
@@ -251,22 +259,23 @@ session_start();
 
 
                     $sql = "SELECT DISTINCT fk_productid,fk_custUserId FROM users_message where fk_custUserId = '" . $_SESSION['user_id'] . "' or fk_sellerUserId = '" . $_SESSION['user_id'] . "'";
-                    $buyername="";
+                    $buyername = "";
 
                     if ($result = mysqli_query($connection, $sql)) {
                         while ($row = mysqli_fetch_assoc($result)) {
-                            if($_SESSION['user_id']!=$row['fk_custUserId']){
+                            if ($_SESSION['user_id'] != $row['fk_custUserId']) {
 
 
-                                $sqlgetname = "select * from users where user_id ='".$row['fk_custUserId']."'";
+                                $sqlgetname = "select * from users where user_id ='" . $row['fk_custUserId'] . "'";
 
 
                                 if ($resultgetname = mysqli_query($connection, $sqlgetname)) {
-                                while ($rowgetname = mysqli_fetch_assoc($resultgetname)) {
+                                    while ($rowgetname = mysqli_fetch_assoc($resultgetname)) {
 
-                                    $buyername=$rowgetname['name'];
+                                        $buyername = $rowgetname['name'];
 
-                                    }}
+                                    }
+                                }
 
                             }
                             $pidd = $row['fk_productid'];
@@ -281,10 +290,17 @@ session_start();
 
                                     $sql3 = "select * from users where user_id='" . $puserid . "'";
 
+                                    $imggg = null;
                                     if ($result3 = mysqli_query($connection, $sql3)) {
                                         while ($row3 = mysqli_fetch_assoc($result3)) {
-
                                             $sellername = $row3['name'];
+                                            if (!empty($row3['profile_picture'])) {
+
+
+                                                $imggg = "data:image/png;base64," . base64_encode($row3['profile_picture']);
+                                            } else {
+                                                $imggg = "img/user.png";
+                                            }
 
                                         }
                                     }
@@ -292,27 +308,34 @@ session_start();
 
                                     $displayseller = "";
                                     if ($puserid == $_SESSION['user_id']) {
-                                        $displayseller = "Buyer: ".$buyername;
+                                        $displayseller = "Buyer: " . $buyername;
                                     } else {
-                                        $displayseller ="Seller: ". $sellername;
+                                        $displayseller = "Seller: " . $sellername;
                                     }
 
 
                                     echo "<div onclick=\"gettest(" . $pidd . ")\" class=\"chat_list active_chat\">";
                                     echo "<div class=\"chat_people\">";
-                                    echo "<div class=\"chat_ib\">";
+                                    echo "<div class=\"chat_ib row\">";
+//                                    echo "<img style=\"float: right;border-radius: 50%;\" height=\"60px\" width=\"60px\" src=\"data:image/png;base64,/>";
+                                    echo "<div class='col-md-4 '>";
+                                    echo "<img class='rounded-circle' height=\"60px\" width=\"60px\" src=\"$imggg\">";
+                                    echo "</div>";
+                                    echo "<div class='col-md-8'>";
                                     echo "<h5>Product name: " . $ptitle . "</h5>";
                                     echo "<h6>" . $displayseller . "</h6>";
-                                    echo " </div> </div> </div>";
+                                    echo "</div>";
+                                    echo "</div></div></div>";
 
                                 }
+
                             }
 
                         }
                     }
 
-
                     ?>
+                    <!--                    <img class='col-md-4' style="border-radius: 50%;" height="60px" width="60px" src="data:image/png;base64, base64_encode($imggg)">-->
 
 
                     <!--                    <button onclick="gettest()">sdfds</button>-->
@@ -408,7 +431,6 @@ session_start();
 
                     </div>
                 </div>
-
 
 
             </div>
