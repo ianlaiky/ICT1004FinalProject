@@ -1,6 +1,6 @@
 <?php
 
-    $ref1 = $ref2 = $ref1Name = $ref2Name = "";
+    $ref1 = $ref2 = $ref3 = $ref1Name = $ref2Name = $ref3Name = "";
     function linkActive($requestUri)
     {
         $current_file_name = basename($_SERVER['REQUEST_URI'], ".php");
@@ -19,6 +19,8 @@
         $ref1Name = "My Profile";
         $ref2 = "logout";
         $ref2Name = "Logout";
+        $ref3 = "user_items";
+        $ref3Name = "My Items";
     }
 
 ?>
@@ -40,17 +42,13 @@
         <!--For products-->
         <?php
             if (isset($_SESSION['username'])) {
-              echo '<li class="nav-item dropdown">';
-              echo '<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Items</a>';
-              echo '<div class="dropdown-menu">';
-              echo '<a class="dropdown-item" href="user_items.php">My items</a>';
-              echo '<a class="dropdown-item" href="create_product.php">Sell an item</a>';
-              echo '</div>';
+              echo '<li ';
+              echo linkActive($ref3);
+              echo '>';
+              echo '<a class="nav-link" href="'.$ref3.'.php">';
+              echo $ref3Name;
+              echo '</a>';
               echo '</li>';
-
-                echo '<li class="nav-item">';
-                echo '<a class="nav-link" href="messageInbox.php?pid=0">Inbox</a>';
-                echo '</li>';
             }
         ?>
         <li <?=linkActive($ref1)?>>

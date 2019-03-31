@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-<?php session_start() 
+<?php session_start();
+//Users that are not registered should not be able to access this page.
+if(!isset($_SESSION['user_id']))
+{
+  ob_start();
+  header('Location: login.php');
+  ob_end_flush();
+  die();
+}
 ?>
 <html lang="en">
 
@@ -79,10 +87,10 @@
     <script>
         function deleteItem(id,element)
         {
-            // Fire off the request to deleteproduct.php
+            // Fire off the request to delete_product.php
             $.ajax({
                 type: "POST",
-                url: "deleteproduct.php",
+                url: "delete_product.php",
                 data: {productid: id},
                 success: function(data){
                     alert("Item deleted.");
@@ -91,20 +99,6 @@
             });
         }
     </script>
-    <!-- <script>
-        function filteritems(name)
-        {
-            if($('.items').not('.'+name).is("hidden"))
-            {
-                $('.items').show();
-            }
-            else
-            {
-                $('.items').not('.'+name).hide();
-            }
-            
-        }
-    </script> -->
 
 </body>
 <?php include 'footer.inc.php' ?>

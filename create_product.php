@@ -211,8 +211,6 @@
           </form>
         </div>
     </article>
-</body>
-
   <?php include 'footer.inc.php' ?>
 
   <!-- Bootstrap core JavaScript -->
