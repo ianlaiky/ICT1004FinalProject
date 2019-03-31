@@ -437,7 +437,7 @@ if(!isset($_GET['pid'])){
 
                             $.get("<?php echo dirname($_SERVER['PHP_SELF']);?>/setMessage.php?rUsr=" + rusr + "&pid=" + sendpid + "&msg=" + msg, function (ret) {
                                 console.log(ret);
-                            })
+                            });
 
                             document.getElementById("write_msg").value = "";
                         }
