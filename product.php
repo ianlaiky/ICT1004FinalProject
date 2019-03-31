@@ -9,7 +9,7 @@
         die( mysqli_connect_error() );
     }
 
-    $sql = mysqli_prepare($connection, "SELECT p.*, u.name FROM product p INNER JOIN users u ON p.userid = u.user_id WHERE product_id = ? AND u.user_id = ?");
+    $sql = mysqli_prepare($connection, "SELECT p.*, u.name FROM product p INNER JOIN users u ON p.userid = u.user_id WHERE p.product_id = ? AND u.user_id = ?");
     $sql->bind_param('ss', $_GET['product_id'], $_GET['user_id']);
 	$sql->execute(); 
 	$result = $sql->get_result();
@@ -37,11 +37,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Product of <?php echo $title ?></title>
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom styles for this template -->
 	<link href="css/shop-homepage.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <?php include 'header.inc.php'; ?>
@@ -50,38 +50,37 @@
     <div class="container">
     	<div class="row">
     		<div class="col-md-7">
-    			<img style="border: 1px solid #ddd; border-radius: 4px; padding: 10px" src=<?php echo $picture ?>>
+                <!-- style="border: 1px solid #ddd; border-radius: 4px; padding: 10px" -->
+    			<img style="height:400px;" class="img-thumbnail" src=<?php echo $picture ?>>
 
-                <p><br>Sold by: <?php echo $name ?></p>
+                
     		</div>
     		<div class="col-md-5">
-    			<ul class="list-group list-group-flush">
-					<h1><?php echo $title ?></h1>
-					<br>
-					<li class="list-group-item">Price: S$<?php echo $price ?></li>
-					<li class="list-group-item">Item listing expiring in: <span id="expiry-countdown"></span> </li>
-                    <li class="list-group-item">Age of item: <?php echo $age ?></li>
-					<li class="list-group-item">Condition: <?php echo $condition ?></li>
-					<li class="list-group-item">Trading place: <?php echo $trading_place ?></li>               
-				</ul>
-                
+                <h1 class="display-3"><?php echo $title ?></h1>
+                <br>
+                <p class="font-weight-lighter"><i class="fa fa-user-circle" aria-hidden="true"></i> <?php echo $name ?></p>
+                <p class="font-weight-lighter"><i class="fa fa-clock-o" aria-hidden="true"></i> <span id="expiry-countdown"></span> </p>
+                <p class="product-price">S$<?php echo $price ?></p>
+                <hr>
+                <p class="font-weight-lighter">Age of item: <?php echo $age ?></p>
+                <p class="font-weight-lighter">Condition: <?php echo $condition ?></p>
+                <p class="font-weight-lighter">Meet up: <?php echo $trading_place ?></p>
+                <br><br>
                 <?php if (isset($_SESSION['user_id'])) 
                 {
-                    echo '<a href="messageInbox.php?pid='.$productId.'&redirect=true" style="position: absolute; right: 30; bottom:0; " type="button" class="btn btn-dark btn-lg">Chat to buy now!</a>';
+                    echo '<a href="messageInbox.php?pid='.$productId.'&redirect=true" style="position: absolute;  bottom:0; " type="button" class="btn btn-dark btn-lg">Chat to buy now!</a>';
                 } else{
-                    echo '<a href="login.php" style="position: absolute; right: 30; bottom:0;" type="button" class="btn btn-dark btn-lg">Interested? Login to buy now.</a>';
+                    echo '<a href="login.php" style="position: absolute;  bottom:0;" type="button" class="btn btn-dark btn-lg">Interested? Login to buy now.</a>';
                 }
 
-                ?>
-                
-				
+                ?>			
     		</div>
     	</div>
     </div>
     
     <div class="container">
     	<hr>
-    	<h1>Product Description</h1>
+    	<h1 class="display-4">Product Description</h1>
     	<br>
     	<p><?php echo $description ?></p>
         <hr>
