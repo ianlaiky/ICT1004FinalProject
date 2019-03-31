@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-<?php session_start() 
+<?php session_start();
+//Users that are not registered should not be able to access this page.
+if(!isset($_SESSION['user_id']))
+{
+  ob_start();
+  header('Location: login.php');
+  ob_end_flush();
+  die();
+}
 ?>
 <html lang="en">
 
@@ -57,8 +65,10 @@
                             echo '<br/>';
                             echo '<h4>Description:</h4><p>'.$row['description'].'</p>';
                             echo '</div>';
-                            echo '<div class="align-self-center mr-3 btn-group-vertical">';
-                            echo '<button type="button" class="btn btn-primary">Edit</button>';
+                            echo '<div class="align-self-center mr-3 btn-group">';
+                            echo '<button type="button" class="btn btn-primary" onclick="editItem('.$row['product_id'].')">Edit</button>';
+                            echo '</div>';
+                            echo '<div class="align-self-center mr-3 btn-group">';
                             echo '<button type="button" class="btn btn-danger" onclick="deleteItem('.$row['product_id'].','.$cnt.')">Delete</button>';
                             echo '</div>';
                             echo '</div>';
@@ -79,10 +89,10 @@
     <script>
         function deleteItem(id,element)
         {
-            // Fire off the request to deleteproduct.php
+            // Fire off the request to delete_product.php
             $.ajax({
                 type: "POST",
-                url: "deleteproduct.php",
+                url: "delete_product.php",
                 data: {productid: id},
                 success: function(data){
                     alert("Item deleted.");
@@ -90,21 +100,12 @@
                 }
             });
         }
-    </script>
-    <!-- <script>
-        function filteritems(name)
+        function editItem(id)
         {
-            if($('.items').not('.'+name).is("hidden"))
-            {
-                $('.items').show();
-            }
-            else
-            {
-                $('.items').not('.'+name).hide();
-            }
-            
+            // Switch url to edit_product.php with product's ID.
+            window.location.href = "edit_product.php?productid=" + id;
         }
-    </script> -->
+    </script>
 
 </body>
 <?php include 'footer.inc.php' ?>

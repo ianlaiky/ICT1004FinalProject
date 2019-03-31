@@ -1,130 +1,127 @@
 <?php session_start() ?>
 <?php
 
-function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
+    function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
 
-$name = $email = $username = "";
-$nameER = $usernameER = $confirmER = "";
+    $name = $email = $username = "";
+    $nameER = $usernameER = $confirmER = "";
 
-require_once('config.php');
+    require_once('config.php');
 
-$connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
-if (mysqli_connect_errno()) {
-    die(mysqli_connect_error());
-}
+    $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
+    if (mysqli_connect_errno()) {
+        die(mysqli_connect_error());
+    }
 
-if (isset($_POST['submit'])) {
+    if (isset($_POST['submit'])) {
 
-    $validcount = 0;
-    if (empty($_POST['name'])) { //check name if empty
-        $nameER = "Please enter your name";
-    } else {
-
-        if (!preg_match("/^[a-zA-Z ]*$/", $_POST["name"])) {
-            $nameER = "Only letters and white space allowed";
+        $validcount = 0;
+        if (empty($_POST['name'])) { //check name if empty
+            $nameER = "Please enter your name";
         } else {
-            $name = test_input($_POST["name"]);
-            $validcount++;
-        }
-    }
-    if (empty($_POST["username"])) //check username if empty
-        $usernameER = "Please enter your username";
 
-    else {
-
-        if (!preg_match("/^[a-zA-Z1-9_]*$/", $_POST["username"])) {
-            $usernameER = "Only alphanumeric and underscore characters allowed";
-        } else {
-            $username = test_input($_POST["username"]);
-            $validcount++;
-        }
-    }
-
-
-    if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-//                    $emailER = "Please enter a valid email address1";
-    } else {
-        $email = test_input($_POST["email"]);
-        $validcount++;
-    }
-
-    if (empty($_POST["password"])) { //check password if empty
-//                $passwordER = "Please enter the password";
-    } else {
-
-        if (!preg_match("/\w{8,}/", $_POST["password"])) {
-            $passwordER = "Please enter at least 8 alphanumeric characters";
-        } else {
-            $password = test_input($_POST["password"]);
-            $validcount++;
-        }
-    }
-
-    if (empty($_POST["confirm"])) { //check passwordconfirm if empty
-        $passwordconfirmER = "Please re-enter the confirmed password";
-    } else {
-        if ($_POST["password"] == $_POST["confirm"]) {
-            $confirm = test_input($_POST["confirm"]);
-             $validcount++;
-        } else {
-            $confirmER = "Passwords do not match";
-           
-        }
-    }
-    if ($validcount != 5) {
-//    header("Location: register.php");
-    } else {
-        $name = mysqli_real_escape_string($connection, $name);
-        $username = mysqli_real_escape_string($connection, $username);
-        $email = mysqli_real_escape_string($connection, $email);
-//    $password = mysqli_real_escape_string($connection,$password);
-        $confirm = mysqli_real_escape_string($connection, $confirm);
-        $password = password_hash($password, PASSWORD_DEFAULT);
-        //Check if user account exist before inserting. 
-
-        if ($sel_stmt = mysqli_prepare($connection, "SELECT user_id, password FROM users WHERE username = ?")) {
-            $sel_stmt->bind_param("s", $username);
-            $sel_stmt->execute();
-            $sel_stmt->store_result();
-
-            if ($sel_stmt->num_rows > 0) {
-                $usernameER= "Username taken.Please choose another username!";
+            if (!preg_match("/^[a-zA-Z ]*$/", $_POST["name"])) {
+                $nameER = "Only letters and white space allowed";
             } else {
-                //account does not exist in database; continue to store.
-                $vkey = md5(time() . $name);
-                if ($insert_stmt = mysqli_prepare($connection, "INSERT INTO users (name, username, password, email, vkey) VALUES (?,?,?,?,?)")) {
-                    $insert_stmt->bind_param('sssss', $name, $username, $password, $email, $vkey);
-                    // $stmt->execute();
-                    if ($insert_stmt->execute()) {
-                        
-                        $to = $email;
-                        $subject = "Email Verification";
-                        $message = "<a href=\"http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/verify.php?vkey=$vkey\">Verify Now!</a>";
-                        $headers = "From: fast-trade@gmail.com \r\n";
-                        $headers .= "MIME-Version: 1.0" . "\r\n";
-                        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                $name = test_input($_POST["name"]);
+                $validcount++;
+            }
+        }
+        if (empty($_POST["username"])) //check username if empty
+            $usernameER = "Please enter your username";
 
-                        mail($to, $subject, $message, $headers);
-                       
-                        echo "<script type='text/javascript'>"
-                        . "alert('Thank you for signing up with us!Please go to your email to verify!');"
-                                ." window.location='index.php';</script>";
-//                        header('location: index.php');
-                       
-                    } else {
-                        echo "fail";
+        else {
+
+            if (!preg_match("/^[a-zA-Z1-9_]*$/", $_POST["username"])) {
+                $usernameER = "Only alphanumeric and underscore characters allowed";
+            } else {
+                $username = test_input($_POST["username"]);
+                $validcount++;
+            }
+        }
+
+
+        if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+    //                    $emailER = "Please enter a valid email address1";
+        } else {
+            $email = test_input($_POST["email"]);
+            $validcount++;
+        }
+
+        if (empty($_POST["password"])) { //check password if empty
+    //                $passwordER = "Please enter the password";
+        } else {
+
+            if (!preg_match("/\w{8,}/", $_POST["password"])) {
+                $passwordER = "Please enter at least 8 alphanumeric characters";
+            } else {
+                $password = test_input($_POST["password"]);
+                $validcount++;
+            }
+        }
+
+        if (empty($_POST["confirm"])) { //check passwordconfirm if empty
+            $passwordconfirmER = "Please re-enter the confirmed password";
+        } else {
+            if ($_POST["password"] == $_POST["confirm"]) {
+                $confirm = test_input($_POST["confirm"]);
+                $validcount++;
+            } else {
+                $confirmER = "Passwords do not match";
+            
+            }
+        }
+        if ($validcount == 5) {
+            $name = mysqli_real_escape_string($connection, $name);
+            $username = mysqli_real_escape_string($connection, $username);
+            $email = mysqli_real_escape_string($connection, $email);
+            $confirm = mysqli_real_escape_string($connection, $confirm);
+            $password = password_hash($password, PASSWORD_DEFAULT);
+            //Check if user account exist before inserting. 
+
+            if ($sel_stmt = mysqli_prepare($connection, "SELECT user_id, password FROM users WHERE username = ?")) {
+                $sel_stmt->bind_param("s", $username);
+                $sel_stmt->execute();
+                $sel_stmt->store_result();
+
+                if ($sel_stmt->num_rows > 0) {
+                    $usernameER= "Username taken. Please choose another username!";
+                } else {
+                    //account does not exist in database; continue to store.
+                    $vkey = md5(time() . $name);
+                    if ($insert_stmt = mysqli_prepare($connection, "INSERT INTO users (name, username, password, email, vkey) VALUES (?,?,?,?,?)")) {
+                        $insert_stmt->bind_param('sssss', $name, $username, $password, $email, $vkey);
+                        // $stmt->execute();
+                        if ($insert_stmt->execute()) {
+                            
+                            $to = $email;
+                            $subject = "Email Verification";
+                            $message = "<a href=\"http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/verify.php?vkey=$vkey\">Verify Now!</a>";
+                            $headers = "From: fast-trade@gmail.com \r\n";
+                            $headers .= "MIME-Version: 1.0" . "\r\n";
+                            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+                            mail($to, $subject, $message, $headers);
+                        
+                            echo "<script type='text/javascript'>"
+                            . "alert('Thank you for signing up with us!Please go to your email to verify!');"
+                                    ." window.location='index.php';</script>";
+    //                        header('location: index.php');
+                        
+                        } else {
+                            echo "fail";
+                        }
                     }
                 }
             }
         }
     }
-}
-mysqli_close($connection);
+    mysqli_close($connection);
 ?>
 <html>
     <head>

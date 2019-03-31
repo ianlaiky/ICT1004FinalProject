@@ -17,6 +17,8 @@
         $ref1Name = "My Profile";
         $ref2 = "logout";
         $ref2Name = "Logout";
+        $ref3 = "user_items";
+        $ref3Name = "My Items";
     }
 ?>
 

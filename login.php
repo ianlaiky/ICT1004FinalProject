@@ -10,9 +10,6 @@ session_start();
 	}
 
 	if (isset($_POST['submit'])) {
-            
-
-            
 	    $username = mysqli_real_escape_string($connection, $_POST['username']);
 	    $password = mysqli_real_escape_string($connection, $_POST['password']);
 
@@ -95,7 +92,6 @@ session_start();
 				<label class="control-label col-sm-2" for="pwd">Password:</label>
 				<div class="col-sm-5"> 
 				  <input type="password" class="form-control" name="password">
-                                  <small  class="help-block"><?php echo $wrong ?></small>
 				</div>
 			</div>
 			<div class="form-group"> 
