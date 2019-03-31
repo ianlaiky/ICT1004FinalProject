@@ -60,7 +60,6 @@
     {
       $expiryBool = true;
       $expiry = mysqli_real_escape_string($connection, $_POST['expiry']);
-      echo $expiry;
     }
     //For optional fields
     if(empty($_FILES['picture']))
@@ -93,9 +92,9 @@
          $insert_stmt->bind_param('ssbsssssiss', $title, $description, $null, $condition, $age, $price, $trading_place, $type, $userid, $active, $expiry);
          $insert_stmt->send_long_data(2, $bin_data);
          $insert_stmt->execute();
-        ob_start();
-        header('Location: index.php');
-        ob_end_flush();
+          ob_start();
+          header('Location: index.php');
+          ob_end_flush();
        die();
       }
       else
@@ -135,13 +134,21 @@
     </header>
     <article>
         <div class="container">
+          <br>
           <h1>List an item for sale</h1>
           <form enctype="multipart/form-data" class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
             <div class="form-group row">
               <label for="type" class="col-sm-2 col-form-label">Type</label>
               <div class="col-sm-10">
                 <select class="form-control" name="type" placeholder="Select your item type.">
-                <option value="Home Appliance">Home Appliance</option>
+                <?php 
+                      $sql = "SELECT * FROM category ORDER BY category.cat_id ASC";
+                      if ($result = mysqli_query($connection, $sql)){
+                          while($row = mysqli_fetch_assoc($result)) {
+                            echo '<option value="'.$row['type'].'">'.$row['type'].'</option>';
+                          }
+                      }
+                 ?>
                 </select>
               </div>
             </div>
