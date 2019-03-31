@@ -50,7 +50,7 @@ if(!isset($_GET['pid'])){
         function ajaxcall() {
 
 
-            $.get("/getMessages.php?productid=" +<?php echo $_GET['pid']?>, function (data) {
+            $.get("<?php echo dirname($_SERVER['PHP_SELF']);?>/getMessages.php?productid=" +<?php echo $_GET['pid']?>, function (data) {
 
                 console.log("Load was performed.");
                 console.log(data.length);
