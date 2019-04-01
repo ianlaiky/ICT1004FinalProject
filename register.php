@@ -37,7 +37,7 @@
 
         else {
 
-            if (!preg_match("/^[a-zA-Z1-9_]*$/", $_POST["username"])) {
+            if (!preg_match("/^[a-zA-Z0-9_]*$/", $_POST["username"])) {
                 $usernameER = "Only alphanumeric and underscore characters allowed";
             } else {
                 $username = test_input($_POST["username"]);
