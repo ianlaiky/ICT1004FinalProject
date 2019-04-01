@@ -68,7 +68,7 @@
                 <br><br>
                 <?php if (isset($_SESSION['user_id'])) 
                 {
-                    echo '<a href="messageInbox.php?pid='.$productId.'&redirect=true" style="position: absolute;  bottom:0; " type="button" class="btn btn-dark btn-lg">Chat to buy now!</a>';
+                    echo '<a href="messageInbox.php?pid='.$productId.'&redirect=true&custid=0" style="position: absolute;  bottom:0; " type="button" class="btn btn-dark btn-lg">Chat to buy now!</a>';
                 } else{
                     echo '<a href="login.php" style="position: absolute;  bottom:0;" type="button" class="btn btn-dark btn-lg">Interested? Login to buy now.</a>';
                 }
