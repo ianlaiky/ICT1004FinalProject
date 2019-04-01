@@ -351,7 +351,7 @@ if(!isset($_GET['custid'])){
                                         $uid = 0;
                                     }
 
-                                    if($pidd==$_GET['pid']){
+                                    if($pidd==$_GET['pid'] && $uid == $_GET['custid']){
                                         echo "<div onclick=\"gettest(" . $pidd . ",".$uid.")\" class=\"chat_list active_chat\">";
                                     }else{
                                         echo "<div onclick=\"gettest(" . $pidd . ",".$uid.")\" class=\"chat_list\">";
