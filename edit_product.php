@@ -9,8 +9,7 @@
   }
 ?>
 <?php 
-  $title = $price = $expiry = $condition = $trading_place = $description = $picture = "";
-  $newprice = $newexpiry = $newcondition = $newtrading_place = $newdescription = "";
+  $title = $price = $expiry = $condition = $trading_place = $description = $picture = $type = "";
   $update_stmt = "";
   $pID = $_GET['productid'];
   $currDate = date('Y-m-d');
@@ -32,6 +31,7 @@
       if ($result) {
         $row = $result->fetch_assoc();
         $title = $row['title'];
+        $type = $row['type'];
         $price = $row['price'];
         $condition = $row['condition'];
         $age = $row['age'];
@@ -62,12 +62,13 @@
       $newdescription = mysqli_real_escape_string($connection,$_POST['description']);
       $newexpiry = mysqli_real_escape_string($connection,$_POST['expiry']);
       $newactive = mysqli_real_escape_string($connection,$_POST['isactive']);
+      $newtype = mysqli_real_escape_string($connection,$_POST['type']);
       $sql = "";
       $picture = 0;
       //For photo
       if(filesize($_FILES['picture']['tmp_name']) == 0)
       {
-        $sql = "UPDATE product SET `title` = ?, `age` = ?,`price` = ?,`condition` = ?,`trading_place` = ?,`description` = ?,`expiry` = ?, `is_active` = ? WHERE product.product_id = '".$product_ID."' AND product.userid = '".$_SESSION['user_id']."'";
+        $sql = "UPDATE product SET `title` = ?, `age` = ?,`price` = ?,`condition` = ?,`trading_place` = ?,`description` = ?,`expiry` = ?, `is_active` = ?, `type` = ? WHERE product.product_id = '".$product_ID."' AND product.userid = '".$_SESSION['user_id']."'";
         $picture = 1;
       }
       else
@@ -76,19 +77,19 @@
         $currfile = $_FILES['picture']['tmp_name'];
         //Get the binary contents of the temp file
         $bin_data = file_get_contents($currfile);
-        $sql = "UPDATE product SET `title` = ?, `age` = ?,`price` = ?,`condition` = ?,`trading_place` = ?,`description` = ?,`expiry` = ?, `picture` = ?, `is_active` = ? WHERE product.product_id = '".$product_ID."' AND product.userid = '".$_SESSION['user_id']."'";
+        $sql = "UPDATE product SET `title` = ?, `age` = ?,`price` = ?,`condition` = ?,`trading_place` = ?,`description` = ?,`expiry` = ?, `picture` = ?, `is_active` = ?, `type` = ? WHERE product.product_id = '".$product_ID."' AND product.userid = '".$_SESSION['user_id']."'";
       }
       if($update_stmt = mysqli_prepare($connection, $sql))
       {
         if($picture == 0)
         {
-          $update_stmt->bind_param('sssssssbs', $newtitle, $newage, $newprice, $newcondition, $newtrading_place, $newdescription, $newexpiry, $null, $newactive);
+          $update_stmt->bind_param('sssssssbss', $newtitle, $newage, $newprice, $newcondition, $newtrading_place, $newdescription, $newexpiry, $null, $newactive, $newtype);
           $update_stmt->send_long_data(7, $bin_data);
           $update_stmt->execute();
         }
         else
         {
-          $update_stmt->bind_param('ssssssss', $newtitle, $newage, $newprice, $newcondition, $newtrading_place, $newdescription, $newexpiry, $newactive);
+          $update_stmt->bind_param('sssssssss', $newtitle, $newage, $newprice, $newcondition, $newtrading_place, $newdescription, $newexpiry, $newactive, $newtype);
           $update_stmt->execute();
         }
           ob_start();
@@ -140,6 +141,25 @@
             <ul class="list-group">
             <li class="list-group-item form-group">Title:
               <input type="text" name="title" value="<?php echo $title ?>">
+            </li>
+            <li class="list-group-item form-group">Type:
+              <select name="type">
+              <?php 
+                      $sql = "SELECT * FROM category ORDER BY category.cat_id ASC";
+                      if ($result = mysqli_query($connection, $sql)){
+                          while($row = mysqli_fetch_assoc($result)) {
+                            if($type == $row['type'])
+                            {
+                              echo '<option value="'.$row['type'].'" selected>'.$row['type'].'</option>';
+                            }
+                            else
+                            {
+                              echo '<option value="'.$row['type'].'">'.$row['type'].'</option>';
+                            }
+                          }
+                      }
+                 ?>
+              </select>
             </li>
             <li class="list-group-item form-group">Price: $
               <input type="number" name="price" value="<?php echo $price ?>">
