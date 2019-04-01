@@ -14,13 +14,15 @@
 	    	echo 'select statement success';
 	    	$update_query = "UPDATE users SET is_verified = 1 WHERE vkey = '$vkey' LIMIT 1";
 	    	if (mysqli_query($connection, $update_query)) {
-	    		echo "update statement success";
+	    		echo "<script type='text/javascript'>". "alert('Verification successful! Redirecting you back to homepage.');"." window.location='index.php';</script>";
 	    	}
 	    	else{
+	    		//Debug stmt
 	    		echo "update statement failed";
 	    	}
 	    }
 	    else{
+	    	//Debug stmt
 	    	echo 'select statement failed.';
 	    }
 	}
@@ -31,6 +33,6 @@
 	<title>Verification</title>
 </head>
 <body>
-	
+
 </body>
 </html>
