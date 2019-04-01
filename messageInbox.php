@@ -10,13 +10,13 @@ session_start();
 
 if(!isset($_GET['pid'])){
 
-    $dir =dirname($_SERVER['PHP_SELF'])."messageInbox.php?pid=0&custid=0";
+    $dir =dirname($_SERVER['PHP_SELF'])."/messageInbox.php?pid=0&custid=0";
 
     header("Location: $dir");
 
 }
 if(!isset($_GET['custid'])){
-    $dire =dirname($_SERVER['PHP_SELF'])."messageInbox.php?pid=0&custid=0";
+    $dire =dirname($_SERVER['PHP_SELF'])."/messageInbox.php?pid=0&custid=0";
     header("Location: $dire");
 }
 
