@@ -109,7 +109,7 @@
                             mail($to, $subject, $message, $headers);
                         
                             echo "<script type='text/javascript'>"
-                            . "alert('Thank you for signing up with us!Please go to your email to verify!');"
+                            . "alert('Thank you for signing up with us! Please go to your email to verify!');"
                                     ." window.location='index.php';</script>";
     //                        header('location: index.php');
                         

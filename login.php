@@ -14,13 +14,11 @@ session_start();
 	    $password = mysqli_real_escape_string($connection, $_POST['password']);
 
 	    if ($findAccount = mysqli_prepare($connection, "SELECT * FROM users WHERE username =?")) {
-	    	echo "select statement works";
 	    	$findAccount->bind_param('s', $username);
 			$findAccount->execute(); 
 			$result = $findAccount->get_result();
 
 			if ($result->num_rows != 0) {
-				echo "account exist";
 				$row = $result->fetch_assoc();
 				$hash = $row['password'];
 				$verified = $row['is_verified'];
@@ -38,7 +36,7 @@ session_start();
 					else{
 						$_SESSION['profile_picture'] = "img/user.png";
 					}					
-					header("Location: index.php");
+					echo "<script type='text/javascript'>". "alert('You have logged in. Redirecting you back to homepage now.');"." window.location='index.php';</script>";
 				}
 				else{
                     $wrong = "The credentials that you've entered doesn't match any account. Sign up for an account.";
