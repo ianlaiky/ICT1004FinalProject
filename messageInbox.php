@@ -57,7 +57,13 @@ if(!isset($_GET['custid'])){
             setTimeout(callback, 1500);
         }
 
-        callback();
+
+        $(window).on('load', function() {
+            console.log('All assets are loaded');
+            callback();
+        });
+
+
 
         function ajaxcall() {
 <?php
