@@ -42,7 +42,7 @@ if(!isset($_GET['pid'])){
         function callback() {
             console.log("test");
             ajaxcall();
-            setTimeout(callback, 3000);
+            setTimeout(callback, 1500);
         }
 
         callback();
