@@ -9,8 +9,15 @@
 session_start();
 
 if(!isset($_GET['pid'])){
-    $dir ="/messageInbox.php?pid=0";
+
+    $dir ="/messageInbox.php?pid=0&custid=0";
+
     header("Location: $dir");
+
+}
+if(!isset($_GET['custid'])){
+    $dire ="/messageInbox.php?pid=0&custid=0";
+    header("Location: $dire");
 }
 
 
@@ -33,10 +40,15 @@ if(!isset($_GET['pid'])){
             crossorigin="anonymous"></script>
     <script>
         // do not comment this
-        function gettest(id) {
+        function gettest(id,uidd) {
+            // console.log(uid);
+            var cusidd = "cusuid"+uidd;
+            console.log(cusidd);
 
-            location.href = location.origin + location.pathname + '?pid=' + id;
+            var uid = document.getElementById(cusidd).textContent;
+            location.href = location.origin + location.pathname + '?pid=' + id+"&custid="+uid;
         }
+
 
 
         function callback() {
@@ -48,9 +60,12 @@ if(!isset($_GET['pid'])){
         callback();
 
         function ajaxcall() {
+<?php
+            $cgetqu = "?productid=".$_GET['pid']."&custid=".$_GET['custid'];
+            ?>
 
 
-            $.get("<?php echo dirname($_SERVER['PHP_SELF']);?>/getMessages.php?productid=" +<?php echo $_GET['pid']?>, function (data) {
+            $.get("<?php echo dirname($_SERVER['PHP_SELF']);?>/getMessages.php<?php echo $cgetqu?>", function (data) {
 
                 console.log("Load was performed.");
                 console.log(data.length);
@@ -315,18 +330,25 @@ if(!isset($_GET['pid'])){
                                         }
                                     }
 
-
+                                    $uid=0;
                                     $displayseller = "";
                                     if ($puserid == $_SESSION['user_id']) {
                                         $displayseller = "Buyer: " . $buyername;
+
+                                        $uid = $row['fk_custUserId'];
+//
+
                                     } else {
+
+
                                         $displayseller = "Seller: " . $sellername;
+                                        $uid = 0;
                                     }
 
                                     if($pidd==$_GET['pid']){
-                                        echo "<div onclick=\"gettest(" . $pidd . ")\" class=\"chat_list active_chat\">";
+                                        echo "<div onclick=\"gettest(" . $pidd . ",".$uid.")\" class=\"chat_list active_chat\">";
                                     }else{
-                                        echo "<div onclick=\"gettest(" . $pidd . ")\" class=\"chat_list\">";
+                                        echo "<div onclick=\"gettest(" . $pidd . ",".$uid.")\" class=\"chat_list\">";
 
                                     }
 
@@ -343,6 +365,7 @@ if(!isset($_GET['pid'])){
                                     echo "<div class='col-md-8'>";
                                     echo "<h5>Product name: " . $ptitle . "</h5>";
                                     echo "<h6>" . $displayseller . "</h6>";
+                                    echo "<div id=\"cusuid$uid\" style=\"visibility: hidden\">$uid</div>";
                                     echo "</div>";
                                     echo "</div></div></div>";
 
@@ -354,6 +377,7 @@ if(!isset($_GET['pid'])){
                     }
 
                     ?>
+
                     <!--                    <img class='col-md-4' style="border-radius: 50%;" height="60px" width="60px" src="data:image/png;base64, base64_encode($imggg)">-->
 
 
