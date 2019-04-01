@@ -87,25 +87,7 @@
 				  	<input type="text" class="form-control" name="contact" value=<?php echo $_SESSION['contact']?>>
 				</div>
 			</div>
-			<br>
-			<hr>
-			<br>
-
-			<h1>Update password</h1>
-			<br>
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label" for="password">New Password:</label>
-				<div class="col-sm-8">
-					<input type="password" class="form-control" name="password">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label" for="confirm">Confirm password:</label>
-				<div class="col-sm-8">
-					<input type="password" class="form-control" name="confirm">
-				</div>
-			</div>
-			<br>
+			<br><br>
 			<div class="form-group row"> 
 				<div class="col-sm-offset-2 col-sm-10">
 				<button type="submit" class="btn btn-info float-right" name="update">Update profile</button>
