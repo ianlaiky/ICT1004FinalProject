@@ -9,7 +9,7 @@
     }
 
     $name = $email = $username = "";
-    $nameER = $usernameER = $confirmER = "";
+    $nameER = $usernameER = $confirmER = $captchaErr = $emailER = $passwordER = "";
 
     require_once('config.php');
 
@@ -47,18 +47,18 @@
 
 
         if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-    //                    $emailER = "Please enter a valid email address1";
+            $emailER = "Please enter a valid email address. A verification will be sent to this address.";
         } else {
             $email = test_input($_POST["email"]);
             $validcount++;
         }
 
         if (empty($_POST["password"])) { //check password if empty
-    //                $passwordER = "Please enter the password";
+                $passwordER = "Please enter a password.";
         } else {
 
             if (!preg_match("/\w{8,}/", $_POST["password"])) {
-                $passwordER = "Please enter at least 8 alphanumeric characters";
+                $passwordER = "Password must be alphanumeric and be at least 8 characters long";
             } else {
                 $password = test_input($_POST["password"]);
                 $validcount++;
@@ -76,7 +76,15 @@
             
             }
         }
-        if ($validcount == 5) {
+
+        if (empty($_POST['g-recaptcha-response'])) {
+            echo '<script>alert("Please verify yourself through recaptcha.")</script>';
+        }
+        else{
+            $validcount++;
+        }
+
+        if ($validcount == 6) {
             $name = mysqli_real_escape_string($connection, $name);
             $username = mysqli_real_escape_string($connection, $username);
             $email = mysqli_real_escape_string($connection, $email);
@@ -111,7 +119,6 @@
                             echo "<script type='text/javascript'>"
                             . "alert('Thank you for signing up with us! Please go to your email to verify!');"
                                     ." window.location='index.php';</script>";
-    //                        header('location: index.php');
                         
                         } else {
                             echo "fail";
@@ -173,15 +180,15 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="email">Email:</label>
                     <div class="col-sm-5">
-                        <input aria-describedby="emailVerify" type="email" class="form-control" name="email" value="<?php echo $email; ?>">
-                        <small style="margin-bottom:0px" id="emailVerify" class="form-text text-muted">Please enter a valid email. A verification email will be sent to this address.</small>
+                        <input type="email" class="form-control" name="email" value="<?php echo $email; ?>">
+                        <small style="margin-bottom:0px" class="help-block"><?php echo $emailER ?></small>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="password">Password:</label>
                     <div class="col-sm-5">
-                        <input aria-describedby="passwordVerify" type="password" class="form-control" name="password">
-                        <small style="margin-bottom:0px" id="passwordVerify" class="form-text text-muted">Password must be alphanumeric and be at least 8 characters long</small>
+                        <input  type="password" class="form-control" name="password">
+                        <small style="margin-bottom:0px" class="help-block"><?php echo $passwordER ?></small>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -191,6 +198,8 @@
                         <small style="margin-bottom:0px" class="help-block"><?php echo $confirmER ?></small>
                     </div>
                 </div>
+                <div class="g-recaptcha" data-sitekey="6Ld5M5sUAAAAAC1rw5rXmToFyYlRbRHoR8_Qqw5I"></div><br>
+                <small style="margin-bottom:0px" class="help-block"><?php echo $captchaErr ?></small>
                 <div class="form-group row"> 
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" name="submit" class="btn btn-info">Submit</button>
@@ -204,5 +213,6 @@
         <!-- Bootstrap core JavaScript -->
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
     </body>
 </html>
