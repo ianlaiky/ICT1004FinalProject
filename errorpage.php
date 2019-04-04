@@ -20,7 +20,7 @@
 					<p>Sorry, an error has occured! Don't worry, we have dispatched our engineers to look at the issue!</p>
 					<br/>
 					<br/>	
-					<button class="btn btn-primary btn-lg" onclick="goBack()"><span class="glyphicon glyphicon-home"></span>
+					<button class="btn btn-primary btn-lg" onclick="goBack()"/><span class="glyphicon glyphicon-home"></span>
 						Click here to go back </a>
 				</div>
 			</div>
