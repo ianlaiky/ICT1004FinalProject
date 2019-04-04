@@ -5,12 +5,11 @@
  */
 body {
   padding-top: 56px;
-  height: 100%;
   padding-bottom: 50px;
   background-color: whitesmoke;
 }
 
-html{
+.errorpage{
   height: 100%;
 }
 
