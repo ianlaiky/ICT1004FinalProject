@@ -6,6 +6,7 @@
  * Time: 9:04 PM
  */
 //Users that are not registered should not be able to access this page.
+session_start();
 if(!isset($_SESSION['user_id']))
 {
   ob_start();
@@ -13,7 +14,7 @@ if(!isset($_SESSION['user_id']))
   ob_end_flush();
   die();
 }
-session_start();
+
 
 
 if (isset($_SESSION['username']) && isset($_GET['rUsr']) && isset($_GET['pid']) && isset($_GET['msg'])) {
