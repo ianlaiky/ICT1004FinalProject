@@ -50,7 +50,6 @@
     <div class="container">
     	<div class="row">
     		<div class="col-md-7">
-                <!-- style="border: 1px solid #ddd; border-radius: 4px; padding: 10px" -->
     			<img style="height:400px;" class="img-thumbnail" src=<?php echo $picture ?>>
 
                 

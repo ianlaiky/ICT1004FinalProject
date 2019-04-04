@@ -135,7 +135,6 @@ if(!isset($_SESSION['user_id']))
 						  </div>
               <input type="file" accept="image/*" name="picture" onChange="changePreview(this)" id="picture" class="form-control" value="" style="display: none;">
             </div>
-            <!-- <img style="border: 1px solid #ddd; border-radius: 4px; padding: 10px" src=<?php echo $picture ?>> -->
           </div>
           <div class="col-md-5">
             <ul class="list-group">

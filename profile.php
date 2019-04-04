@@ -1,9 +1,5 @@
 <?php session_start() ?>
 <?php 
-	// $dp = "img/user.png";
-	// if (!empty($_SESSION['profile_picture'])) {
-	// 	$dp = $_SESSION['profile_picture'];
-	// }
 	//Users that are not registered should not be able to access this page.
 	if(!isset($_SESSION['user_id']))
 	{
@@ -38,19 +34,12 @@
 				<label class="col-sm-2 col-form-label">Profile Image</label>
 		    	<div class="col-sm-8">
 		      		<div class="file-field hoverEffect">
-						<!-- <div class="z-depth-1-half mb-4"> -->
 							 <!-- Need to change src to $_SESSION['picture'] after inserting -->
 						<img onClick="popupFileExplorer()" id="preview" class="img-fluid image" src=<?php echo $_SESSION['profile_picture']; ?>>
 						<div class="middle">
 							<i class="fa fa-camera fa-lg" aria-hidden="true"></i>
 						</div>
-						<!-- <img src="img/user.png" onclick="popupFileExplorer()" id="preview" style="height:100px" > -->
-						<!-- </div> -->
-						<!-- <div class="d-flex"> -->
-							<!-- <div style="padding:0px" class="btn btn-mdb-color btn-rounded float-left"> -->
 						<input type="file" accept="image/*" name="picture" onChange="changePreview(this)" id="picture" class="form-control" value="" style="display: none;">
-							<!-- </div> -->
-						<!-- </div> -->
 					</div>
 		    	</div>
 			</div>

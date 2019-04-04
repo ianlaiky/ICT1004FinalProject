@@ -55,7 +55,6 @@
     if(strtotime($_POST['expiry']) == strtotime('0000-00-00'))
     {
       $expiry = date('Y-m-d', strtotime($currDate . ' +5 day'));
-      echo $expiry;
     }
     else
     {
@@ -80,27 +79,25 @@
     else{
       $age = mysqli_real_escape_string($connection, $_POST['age']);
     }
-      
+    //For the other fields that don't need validation
     $type = mysqli_real_escape_string($connection, $_POST['type']);
     $condition = mysqli_real_escape_string($connection, $_POST['condition']);
     $userid = mysqli_real_escape_string($connection, $_SESSION['user_id']);
     $active =  mysqli_real_escape_string($connection, "yes");
+    //If the verifications are clear, proceed with POSTing.
     if($titleBool == true && $descriptionBool == true && $priceBool == true && $trading_placeBool == true)
     {
-
+      //Check if the statement is cleared.
       if($insert_stmt = mysqli_prepare($connection, "INSERT INTO product (`title`, `description`, `picture`, `condition`, `age`, `price`, `trading_place`, `type`, `userid`, `is_active`, `expiry`) VALUES (?,?,?,?,?,?,?,?,?,?,?)"))
       {
         $insert_stmt->bind_param('ssbsssssiss', $title, $description, $null, $condition, $age, $price, $trading_place, $type, $userid, $active, $expiry);
         $insert_stmt->send_long_data(2, $bin_data);
         $insert_stmt->execute();
+        //If succeed, alert and redirect the user to their item list to see their items.
         ob_start();
-        header('Location: index.php');
+        echo "<script type='text/javascript'>". "alert('Item created!');"." window.location='user_items.php';</script>";
         ob_end_flush();
-       die();
-      }
-      else
-      {
-        echo 'fail';
+        die();
       }
     }
     
@@ -156,14 +153,14 @@
             <div class="form-group row">
               <label for="title" class="col-sm-2 col-form-label">Title</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="title" placeholder="Please enter a title.">
+                <input type="text" class="form-control" name="title" placeholder="Please enter a title." value="<?php echo $title?>">
                 <span class="error"> <?php echo $titleErr;?></span>
               </div>
             </div>
             <div class="form-group row">
               <label for="description" class="col-sm-2 col-form-label">Description</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="description" placeholder="Please describe your item.">
+                <input type="text" class="form-control" name="description" placeholder="Please describe your item." value="<?php echo $description?>">
                 <span class="error"> <?php echo $descriptionErr;?></span>
               </div>
             </div>
@@ -179,7 +176,12 @@
                   $num = 1;
                   while($num < 11)
                   {
-                    echo'<option value="'.$num.'">'.$num.'</option>';
+                    if($num == $condition){
+                        echo'<option value="'.$num.'" selected>'.$num.'</option>';
+                    }
+                    else{
+                        echo'<option value="'.$num.'">'.$num.'</option>';
+                    }
                     ++$num;
                   }
                 ?>
@@ -189,27 +191,27 @@
             <div class="form-group row">
               <label for="age" class="col-sm-2 col-form-label">Age</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="age" placeholder="Please indicate the age of your item.">
+                <input type="text" class="form-control" name="age" placeholder="Please indicate the age of your item." value="<?php echo $age?>">
               </div>
             </div>
             <div class="form-group row">
               <label for="price" class="col-sm-2 col-form-label">Price</label>
               <div class="col-sm-10">
-                <input type="number" step="0.01" class="form-control" name="price" placeholder="e.g. 12.00">
+                <input type="number" step="0.01" class="form-control" name="price" placeholder="e.g. 12.00" value="<?php echo $price?>">
                 <span class="error"> <?php echo $priceErr;?></span>
               </div>
             </div>
             <div class="form-group row">
               <label for="trading_place" class="col-sm-2 col-form-label">Trading place</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="trading_place" placeholder="Where would you like to trade?">
+                <input type="text" class="form-control" name="trading_place" placeholder="Where would you like to trade?" value="<?php echo $trading_place?>">
                 <span class="error"> <?php echo $trading_placeErr;?></span>
               </div>
             </div>
             <div class="form-group row">
               <label for="expiry" class="col-sm-2 col-form-label">Expiry date</label>
               <div class="col-sm-10">
-                <input type="date" class="form-control" name="expiry" min="<?php echo $nextDate?>">
+                <input type="date" class="form-control" name="expiry" min="<?php echo $nextDate?>" value="<?php echo $expiry?>">
                 <small class="form-text text-muted">You may wish to list the length of your item listing. By default, it will be 5 days.</small>
               </div>
             </div>

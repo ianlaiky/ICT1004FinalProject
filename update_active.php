@@ -4,7 +4,7 @@
     if (mysqli_connect_errno() ){
         die( mysqli_connect_error() );
     }
-    //statement to update all products that have already expired or sold.
+    //statement to update all products that have already expired or sold for each users that enter the index.
     if($_SERVER["REQUEST_METHOD"] == "POST")
     {
         $pid = $_POST['productid'];
