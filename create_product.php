@@ -3,7 +3,7 @@
   if(!isset($_SESSION['user_id']))
   {
     ob_start();
-    header('Location: login.php');
+    header('Location: errorpage.php');
     ob_end_flush();
     die();
   }

@@ -4,6 +4,14 @@
 	// if (!empty($_SESSION['profile_picture'])) {
 	// 	$dp = $_SESSION['profile_picture'];
 	// }
+	//Users that are not registered should not be able to access this page.
+	if(!isset($_SESSION['user_id']))
+	{
+	  ob_start();
+	  header('Location: errorpage.php');
+	  ob_end_flush();
+	  die();
+	}
  ?>
 <!DOCTYPE html>
 <html>
@@ -27,7 +35,7 @@
 		<br>
 		<form enctype="multipart/form-data" class="form-horizontal" method="post" action="update_profile.php"> 
 			<div class="form-group row">
-				<label for="picture" class="col-sm-2 col-form-label">Profile Image</label>
+				<label class="col-sm-2 col-form-label">Profile Image</label>
 		    	<div class="col-sm-8">
 		      		<div class="file-field hoverEffect">
 						<!-- <div class="z-depth-1-half mb-4"> -->

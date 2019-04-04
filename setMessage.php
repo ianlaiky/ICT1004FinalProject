@@ -5,7 +5,14 @@
  * Date: 28/3/2019
  * Time: 9:04 PM
  */
-
+//Users that are not registered should not be able to access this page.
+if(!isset($_SESSION['user_id']))
+{
+  ob_start();
+  header('Location: errorpage.php');
+  ob_end_flush();
+  die();
+}
 session_start();
 
 

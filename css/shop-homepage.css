@@ -5,8 +5,13 @@
  */
 body {
   padding-top: 56px;
+  height: 100%;
   padding-bottom: 50px;
   background-color: whitesmoke;
+}
+
+html{
+  height: 100%;
 }
 
 /*Jumbotron image credit: https://www.pexels.com/photo/three-women-and-two-men-leaning-on-white-wall-1391380/ */
@@ -183,3 +188,8 @@ h2 span {
 .error{
     color:red;
 }
+
+/* errorpage css */
+.error-template { padding: 40px 15px;  text-align: center;}
+.error-actions {margin-top:15px;margin-bottom:15px;}
+.error-actions .btn { margin-right:10px; }

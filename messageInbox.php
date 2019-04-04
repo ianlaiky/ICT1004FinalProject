@@ -7,7 +7,14 @@
  * Time: 3:19 PM
  */
 session_start();
-
+//Users that are not registered should not be able to access this page.
+if(!isset($_SESSION['user_id']))
+{
+  ob_start();
+  header('Location: errorpage.php');
+  ob_end_flush();
+  die();
+}
 if(!isset($_GET['pid'])){
 
     $dir =dirname($_SERVER['PHP_SELF'])."/messageInbox.php?pid=0&custid=0";

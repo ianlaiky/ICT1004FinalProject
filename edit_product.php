@@ -1,12 +1,12 @@
 <?php session_start();
 //Users that are not registered should not be able to access this page.
-  if(!isset($_SESSION['user_id']))
-  {
-    ob_start();
-    header('Location: login.php');
-    ob_end_flush();
-    die();
-  }
+if(!isset($_SESSION['user_id']))
+{
+  ob_start();
+  header('Location: errorpage.php');
+  ob_end_flush();
+  die();
+}
 ?>
 <?php 
   $title = $price = $expiry = $condition = $trading_place = $description = $picture = $type = "";
