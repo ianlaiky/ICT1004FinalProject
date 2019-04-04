@@ -39,11 +39,11 @@ session_start();
 					echo "<script type='text/javascript'>". "alert('You have logged in. Redirecting you back to homepage now.');"." window.location='index.php';</script>";
 				}
 				else{
-                    $wrong = "The credentials that you've entered doesn't match any account. Sign up for an account.";
+                    $wrong = "Incorrect username/password.";
 				}
 			}
 			else{
-                $wrong = "The credentials that you've entered doesn't match any account. Sign up for an account.";
+                $wrong = "Incorrect username/password.";
 			}
 	    }
 	    else{
@@ -78,25 +78,26 @@ session_start();
 	<div class="container">
 		<h1>Login to start shopping!</h1>
 
-		<br><hr>
+		<br><hr><br>
 		<form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="username">Username:</label>
+			<div class="form-group row">
+				<label class="col-form-label col-sm-2" for="username">Username:</label>
 				<div class="col-sm-5">
 				  <input type="text" class="form-control" name="username">
 				</div>
 			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="pwd">Password:</label>
+			<div class="form-group row">
+				<label class="col-form-label col-sm-2" for="pwd">Password:</label>
 				<div class="col-sm-5"> 
 				  <input type="password" class="form-control" name="password">
 				</div>
 			</div>
-			<div class="form-group"> 
+			<div class="form-group row"> 
 				<div class="col-sm-offset-2 col-sm-10">
 				<button type="submit" name="submit" class="btn btn-info">Login</button>
 				</div>
 			</div>
+			<small style="margin-bottom:0px" class="help-block"><?php echo $wrong ?></small>
 
 		</form>
 		<p>Don't have an account?<a href="register.php"> Sign up now! </a></p>	

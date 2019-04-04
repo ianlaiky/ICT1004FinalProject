@@ -160,7 +160,7 @@
         <div class="container">
             <br><br>
             <h1>Register Account</h1>
-            <br><hr>
+            <br><hr><br>
 
             <form enctype="multipart/form-data" class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <div class="form-group row">
